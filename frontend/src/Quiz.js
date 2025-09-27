@@ -14,7 +14,7 @@ function Quiz({ onQuizComplete }) {
         genres: [],
         audience: [],
         eras: [],
-        vibe: ''
+        vibe: []
     });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -61,15 +61,17 @@ function Quiz({ onQuizComplete }) {
         }));
     };
 
-    const handleVibeChange = (e) => {
+    const handleVibeToggle = (vibe) => {
         setAnswers(prev => ({
             ...prev,
-            vibe: e.target.value
+            vibe: prev.vibe.includes(vibe)
+                ? prev.vibe.filter(v => v !== vibe)
+                : [...prev.vibe, vibe]
         }));
     };
 
     const submitQuiz = async () => {
-        if (answers.genres.length === 0 && answers.audience.length === 0 && answers.eras.length === 0) {
+        if (answers.genres.length === 0 && answers.audience.length === 0 && answers.eras.length === 0 && answers.vibe.length === 0) {
             setError('Please select at least one preference');
             return;
         }
@@ -185,16 +187,19 @@ function Quiz({ onQuizComplete }) {
             case 4:
                 return (
                     <div className="quiz-step">
-                        <h2>🎭 Describe your reading vibe</h2>
-                        <p className="quiz-subtitle">What kind of mood are you in? (Optional)</p>
-                        <div className="vibe-input">
-                            <textarea
-                                value={answers.vibe}
-                                onChange={handleVibeChange}
-                                placeholder="e.g., dark psychological, lighthearted comedy, epic adventure, slice of life..."
-                                rows="4"
-                                className="vibe-textarea"
-                            />
+                        <h2>🎭 What's your reading mood?</h2>
+                        <p className="quiz-subtitle">Select the vibes that appeal to you</p>
+                        <div className="options-grid">
+                            {['Dark & Psychological', 'Lighthearted Comedy', 'Epic Adventure', 'Slice of Life', 'Romantic', 'Action-Packed', 'Mysterious', 'Heartwarming'].map(vibe => (
+                                <label key={vibe} className="option-card">
+                                    <input
+                                        type="checkbox"
+                                        checked={answers.vibe.includes(vibe)}
+                                        onChange={() => handleVibeToggle(vibe)}
+                                    />
+                                    <span className="option-text">{vibe}</span>
+                                </label>
+                            ))}
                         </div>
                         <div className="quiz-summary">
                             <h3>Your Preferences:</h3>
@@ -207,11 +212,9 @@ function Quiz({ onQuizComplete }) {
                             <div className="summary-item">
                                 <strong>Eras:</strong> {answers.eras.length > 0 ? answers.eras.join(', ') : 'None selected'}
                             </div>
-                            {answers.vibe && (
-                                <div className="summary-item">
-                                    <strong>Vibe:</strong> {answers.vibe}
-                                </div>
-                            )}
+                            <div className="summary-item">
+                                <strong>Mood:</strong> {answers.vibe.length > 0 ? answers.vibe.join(', ') : 'None selected'}
+                            </div>
                         </div>
                     </div>
                 );

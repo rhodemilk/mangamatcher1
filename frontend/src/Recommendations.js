@@ -1,15 +1,111 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Recommendations.css';
 
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 function Recommendations({ recommendations, onBackToQuiz }) {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [currentManga, setCurrentManga] = useState(null);
+    const [isAnimating, setIsAnimating] = useState(false);
+    const [likedManga, setLikedManga] = useState([]);
+    const [rejectedManga, setRejectedManga] = useState([]);
+
+    useEffect(() => {
+        if (recommendations && recommendations.length > 0) {
+            setCurrentManga(recommendations[currentIndex]);
+        }
+    }, [recommendations, currentIndex]);
+
+    const handleSwipe = (direction) => {
+        if (isAnimating || !currentManga) return;
+
+        setIsAnimating(true);
+
+        if (direction === 'like') {
+            setLikedManga(prev => [...prev, currentManga]);
+        } else {
+            setRejectedManga(prev => [...prev, currentManga]);
+        }
+
+        // Move to next manga after animation
+        setTimeout(() => {
+            setCurrentIndex(prev => prev + 1);
+            setIsAnimating(false);
+        }, 300);
+    };
+
+    const handleLike = () => handleSwipe('like');
+    const handleReject = () => handleSwipe('reject');
+
+    const handleKeyPress = (e) => {
+        if (e.key === 'ArrowLeft') {
+            handleReject();
+        } else if (e.key === 'ArrowRight') {
+            handleLike();
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('keydown', handleKeyPress);
+        return () => window.removeEventListener('keydown', handleKeyPress);
+    }, []);
+
     if (!recommendations || recommendations.length === 0) {
         return (
             <div className="recommendations-container">
                 <div className="no-recommendations">
-                    <h2>🌸 No Recommendations Found</h2>
-                    <p>We couldn't find any manga matching your preferences. Try adjusting your quiz answers!</p>
+                    <h2>No recommendations found</h2>
+                    <p>Try adjusting your preferences in the quiz.</p>
                     <button onClick={onBackToQuiz} className="btn btn-primary">
-                        Retake Quiz
+                        Back to Quiz
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
+    if (currentIndex >= recommendations.length) {
+        return (
+            <div className="recommendations-container">
+                <div className="results-summary">
+                    <h2>🌸 You've seen all recommendations!</h2>
+                    <div className="summary-stats">
+                        <div className="stat-item">
+                            <span className="stat-number">{likedManga.length}</span>
+                            <span className="stat-label">Liked</span>
+                        </div>
+                        <div className="stat-item">
+                            <span className="stat-number">{rejectedManga.length}</span>
+                            <span className="stat-label">Passed</span>
+                        </div>
+                    </div>
+
+                    {likedManga.length > 0 && (
+                        <div className="liked-manga">
+                            <h3>Your Liked Manga:</h3>
+                            <div className="liked-list">
+                                {likedManga.map((manga, index) => (
+                                    <div key={index} className="liked-item">
+                                        <h4>{manga.manga.title}</h4>
+                                        <p>by {manga.manga.author}</p>
+                                        {manga.manga.amazon_link && (
+                                            <a
+                                                href={manga.manga.amazon_link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="amazon-link"
+                                            >
+                                                View on Amazon
+                                            </a>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    <button onClick={onBackToQuiz} className="btn btn-primary">
+                        Take Quiz Again
                     </button>
                 </div>
             </div>
@@ -19,115 +115,94 @@ function Recommendations({ recommendations, onBackToQuiz }) {
     return (
         <div className="recommendations-container">
             <div className="recommendations-header">
-                <h1>🌸 Your Manga Recommendations</h1>
-                <p>Based on your preferences, here are some manga you might enjoy!</p>
-                <button onClick={onBackToQuiz} className="btn btn-secondary">
-                    ← Retake Quiz
-                </button>
+                <h1>🌸 MangaMatcher</h1>
+                <div className="progress-info">
+                    <span>{currentIndex + 1} of {recommendations.length}</span>
+                </div>
             </div>
 
-            <div className="recommendations-grid">
-                {recommendations.map((rec, index) => {
-                    const manga = rec.manga;
-                    const score = rec.similarity_score;
-
-                    return (
-                        <div key={manga.id} className="manga-card">
-                            <div className="manga-rank">
-                                #{index + 1}
-                            </div>
-
-                            <div className="manga-cover">
-                                {manga.cover_image_url ? (
-                                    <img
-                                        src={manga.cover_image_url}
-                                        alt={manga.title}
-                                        onError={(e) => {
-                                            e.target.style.display = 'none';
-                                            e.target.nextSibling.style.display = 'flex';
-                                        }}
-                                    />
-                                ) : null}
-                                <div className="cover-placeholder" style={{ display: manga.cover_image_url ? 'none' : 'flex' }}>
-                                    <span>📚</span>
-                                </div>
-                            </div>
-
-                            <div className="manga-info">
-                                <h3 className="manga-title">{manga.title}</h3>
-                                <p className="manga-author">by {manga.author}</p>
-
-                                <div className="manga-details">
-                                    {manga.genre && (
-                                        <span className="detail-tag genre">{manga.genre}</span>
-                                    )}
-                                    {manga.demographic && (
-                                        <span className="detail-tag demographic">{manga.demographic}</span>
-                                    )}
-                                    {manga.year && (
-                                        <span className="detail-tag year">{manga.year}</span>
-                                    )}
-                                </div>
-
-                                {manga.rating_avg > 0 && (
-                                    <div className="manga-rating">
-                                        <span className="rating-label">Rating:</span>
-                                        <span className="rating-value">{manga.rating_avg}/100</span>
-                                        <div className="rating-stars">
-                                            {'★'.repeat(Math.floor(manga.rating_avg / 20))}
-                                            {'☆'.repeat(5 - Math.floor(manga.rating_avg / 20))}
-                                        </div>
-                                    </div>
-                                )}
-
-                                {manga.description && (
-                                    <p className="manga-description">
-                                        {manga.description.length > 150
-                                            ? `${manga.description.substring(0, 150)}...`
-                                            : manga.description
-                                        }
-                                    </p>
-                                )}
-
-                                <div className="manga-stats">
-                                    {manga.num_of_vol && (
-                                        <span className="stat">
-                                            📖 {manga.num_of_vol} volumes
-                                        </span>
-                                    )}
-                                    {manga.sales && (
-                                        <span className="stat">
-                                            📈 {manga.sales}
-                                        </span>
-                                    )}
-                                </div>
-
-                                <div className="manga-actions">
-                                    {manga.amazon_link && (
-                                        <a
-                                            href={manga.amazon_link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="btn btn-primary btn-small"
-                                        >
-                                            View on Amazon
-                                        </a>
-                                    )}
-                                    <div className="match-score">
-                                        Match: {Math.round(score * 100)}%
-                                    </div>
-                                </div>
-                            </div>
+            <div className="card-container">
+                <div
+                    className={`manga-card ${isAnimating ? 'swiping' : ''}`}
+                    key={currentIndex}
+                >
+                    <div className="card-image">
+                        {currentManga?.manga.cover_image_url ? (
+                            <img
+                                src={currentManga.manga.cover_image_url}
+                                alt={currentManga.manga.title}
+                                onError={(e) => {
+                                    e.target.style.display = 'none';
+                                    e.target.nextSibling.style.display = 'block';
+                                }}
+                            />
+                        ) : null}
+                        <div className="no-image" style={{ display: currentManga?.manga.cover_image_url ? 'none' : 'block' }}>
+                            <div className="no-image-icon">📚</div>
                         </div>
-                    );
-                })}
+                    </div>
+
+                    <div className="card-content">
+                        <h2 className="manga-title">{currentManga?.manga.title}</h2>
+                        <p className="manga-author">by {currentManga?.manga.author}</p>
+
+                        <div className="manga-details">
+                            <div className="detail-item">
+                                <span className="detail-label">Genre:</span>
+                                <span className="detail-value">{currentManga?.manga.genre}</span>
+                            </div>
+                            <div className="detail-item">
+                                <span className="detail-label">Demographic:</span>
+                                <span className="detail-value">{currentManga?.manga.demographic}</span>
+                            </div>
+                            <div className="detail-item">
+                                <span className="detail-label">Year:</span>
+                                <span className="detail-value">{currentManga?.manga.year}</span>
+                            </div>
+                            {currentManga?.manga.rating_avg && (
+                                <div className="detail-item">
+                                    <span className="detail-label">Rating:</span>
+                                    <span className="detail-value">⭐ {currentManga.manga.rating_avg}/100</span>
+                                </div>
+                            )}
+                        </div>
+
+                        {currentManga?.manga.description && (
+                            <div className="manga-description">
+                                <p>{currentManga.manga.description}</p>
+                            </div>
+                        )}
+
+                        {currentManga?.manga.tags && (
+                            <div className="manga-tags">
+                                {currentManga.manga.tags.split(', ').slice(0, 5).map((tag, index) => (
+                                    <span key={index} className="tag">{tag}</span>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                </div>
             </div>
 
-            <div className="recommendations-footer">
-                <p>Found {recommendations.length} recommendations based on your preferences!</p>
-                <button onClick={onBackToQuiz} className="btn btn-primary btn-large">
-                    Find More Recommendations
+            <div className="action-buttons">
+                <button
+                    className="action-btn reject-btn"
+                    onClick={handleReject}
+                    disabled={isAnimating}
+                >
+                    ✕
                 </button>
+                <button
+                    className="action-btn like-btn"
+                    onClick={handleLike}
+                    disabled={isAnimating}
+                >
+                    ♥
+                </button>
+            </div>
+
+            <div className="instructions">
+                <p>Use the buttons or arrow keys (← →) to swipe</p>
             </div>
         </div>
     );

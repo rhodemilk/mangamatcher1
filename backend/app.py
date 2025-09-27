@@ -1,10 +1,10 @@
-from flask import Flask, jsonify, request, make_response
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import os
 from dotenv import load_dotenv
-import pandas as pd
+# pandas import removed - not needed for current functionality
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -18,7 +18,7 @@ CORS(app)  # Enable CORS for React frontend
 # Database configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
     'DATABASE_URL',
-    'postgresql://postgres:password@localhost:5432/mangamatcher'
+    'sqlite:///mangamatcher.db'
 )
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -117,26 +117,7 @@ def get_users():
     return jsonify([user.to_dict() for user in users])
 
 
-@app.route('/api/users', methods=['POST'])
-def create_user():
-    data = request.get_json()
-
-    # Basic validation
-    if not data or 'username' not in data or 'email' not in data:
-        return jsonify({'error': 'Username and email are required'}), 400
-
-    user = User(
-        username=data['username'],
-        email=data['email']
-    )
-
-    try:
-        db.session.add(user)
-        db.session.commit()
-        return jsonify(user.to_dict()), 201
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({'error': 'User creation failed'}), 500
+# Removed POST endpoint for user creation - read-only system
 
 
 @app.route('/api/manga', methods=['GET'])
@@ -145,27 +126,7 @@ def get_manga():
     return jsonify([manga.to_dict() for manga in manga_list])
 
 
-@app.route('/api/manga', methods=['POST'])
-def create_manga():
-    data = request.get_json()
-
-    if not data or 'title' not in data:
-        return jsonify({'error': 'Title is required'}), 400
-
-    manga = Manga(
-        title=data['title'],
-        author=data.get('author', ''),
-        genre=data.get('genre', ''),
-        rating=data.get('rating', 0.0)
-    )
-
-    try:
-        db.session.add(manga)
-        db.session.commit()
-        return jsonify(manga.to_dict()), 201
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({'error': 'Manga creation failed'}), 500
+# Removed POST endpoint for manga creation - dataset is read-only
 
 # Quiz recommendation system
 
@@ -193,7 +154,7 @@ def get_manga_features():
     return feature_matrix, manga_data, vectorizer
 
 
-def get_quiz_recommendations(genres, audience, eras, vibe=""):
+def get_quiz_recommendations(genres, audience, eras, vibe=None):
     """Get recommendations based on quiz answers"""
     feature_matrix, manga_data, vectorizer = get_manga_features()
 
@@ -201,7 +162,9 @@ def get_quiz_recommendations(genres, audience, eras, vibe=""):
         return []
 
     # Create query from user preferences
-    query_text = f"{' '.join(genres)} {' '.join(audience)} {' '.join(eras)} {vibe}"
+    if vibe is None:
+        vibe = []
+    query_text = f"{' '.join(genres)} {' '.join(audience)} {' '.join(eras)} {' '.join(vibe)}"
     query_vector = vectorizer.transform([query_text])
 
     # Calculate similarities
@@ -255,9 +218,9 @@ def quiz_recommend():
     genres = data.get('genres', [])
     audience = data.get('audience', [])
     eras = data.get('eras', [])
-    vibe = data.get('vibe', '')
+    vibe = data.get('vibe', [])
 
-    if not genres and not audience and not eras:
+    if not genres and not audience and not eras and not vibe:
         return jsonify({'error': 'At least one preference must be selected'}), 400
 
     try:
@@ -282,6 +245,6 @@ if __name__ == '__main__':
     with app.app_context():
         create_tables()
 
-    port = int(os.getenv('PORT', 5000))
+    port = int(os.getenv('PORT', '5000'))
     debug = os.getenv('FLASK_ENV') == 'development'
     app.run(host='0.0.0.0', port=port, debug=debug)
