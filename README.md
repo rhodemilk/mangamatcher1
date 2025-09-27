@@ -109,10 +109,12 @@ mangamatcher1/
 
 ## 📝 Notes
 
+- **Local Development Only**: This setup is designed for local development and testing
 - Database is automatically created on first run
 - All manga data is loaded from CSV file
 - No authentication required (simple demo app)
 - Uses port 8000 for backend, 3000 for frontend
+- Docker files have been removed for simplicity
 
 ## 🐛 Troubleshooting
 
