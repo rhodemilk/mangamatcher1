@@ -158,7 +158,7 @@ def get_quiz_recommendations(genres, audience, eras, vibe=None):
     """Get recommendations based on quiz answers"""
     feature_matrix, manga_data, vectorizer = get_manga_features()
 
-    if feature_matrix is None:
+    if feature_matrix is None or manga_data is None or vectorizer is None:
         return []
 
     # Create query from user preferences
@@ -230,7 +230,7 @@ def quiz_recommend():
             'recommendations': recommendations,
             'total_found': len(recommendations)
         })
-    except Exception as e:
+    except (ValueError, AttributeError, IndexError) as e:
         return jsonify({'error': f'Recommendation failed: {str(e)}'}), 500
 
 # Initialize database
