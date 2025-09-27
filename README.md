@@ -123,6 +123,12 @@ mangamatcher1/
 - Ensure virtual environment is activated
 - Run `pip install -r requirements.txt`
 
+**Flask-SQLAlchemy import errors:**
+- Make sure you're using Python 3.8+ (Python 3.13+ recommended)
+- Try: `pip install --upgrade pip`
+- Then: `pip install -r requirements.txt --force-reinstall`
+- If still having issues, try: `pip install Flask-SQLAlchemy==3.1.1`
+
 **Frontend won't start:**
 - Ensure Node.js is installed: `node --version`
 - Run `npm install` in frontend directory
@@ -132,6 +138,11 @@ mangamatcher1/
 - Check backend logs for errors
 - Ensure manga data is loaded (check database)
 - Verify API endpoints are responding
+
+**Common Python/Flask issues:**
+- If you get "No module named 'flask_sqlalchemy'": Run `pip install Flask-SQLAlchemy`
+- If you get version conflicts: Try `pip install --upgrade -r requirements.txt`
+- If using Python 3.13+: Some packages might need latest versions
 
 ## 📄 License
 

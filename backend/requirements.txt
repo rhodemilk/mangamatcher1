@@ -1,12 +1,12 @@
 # Flask Backend Requirements
 # Core Flask dependencies
-Flask==2.3.3
+Flask==3.0.0
 Flask-CORS==4.0.0
-Flask-SQLAlchemy==3.0.5
+Flask-SQLAlchemy==3.1.1
 
 # Database
-psycopg2-binary==2.9.7
-sqlalchemy==2.0.21
+psycopg2-binary==2.9.9
+sqlalchemy==2.0.23
 
 # Environment variables
 python-dotenv==1.0.0
