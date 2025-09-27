@@ -13,7 +13,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for React frontend
+CORS(app, origins=['http://localhost:3000', 'http://127.0.0.1:3000'])  # Enable CORS for React frontend
 
 # Database configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
@@ -188,23 +188,29 @@ def get_quiz_recommendations(genres, audience, eras, vibe=None):
 @app.route('/api/quiz/options', methods=['GET'])
 def get_quiz_options():
     """Get available options for quiz questions"""
-    # Get unique genres from database
-    genres = db.session.query(Manga.genre).distinct().all()
-    genre_list = [g[0] for g in genres if g[0]]
+    try:
+        # Get unique genres from database
+        genres = db.session.query(Manga.genre).distinct().all()
+        genre_list = [g[0] for g in genres if g[0]]
 
-    # Get unique demographics
-    demographics = db.session.query(Manga.demographic).distinct().all()
-    demographic_list = [d[0] for d in demographics if d[0]]
+        # Get unique demographics
+        demographics = db.session.query(Manga.demographic).distinct().all()
+        demographic_list = [d[0] for d in demographics if d[0]]
 
-    # Get unique year buckets
-    year_buckets = db.session.query(Manga.year_bucket).distinct().all()
-    year_bucket_list = [y[0] for y in year_buckets if y[0]]
+        # Get unique year buckets
+        year_buckets = db.session.query(Manga.year_bucket).distinct().all()
+        year_bucket_list = [y[0] for y in year_buckets if y[0]]
 
-    return jsonify({
-        'genres': genre_list,
-        'demographics': demographic_list,
-        'year_buckets': year_bucket_list
-    })
+        print(f"Quiz options - Genres: {len(genre_list)}, Demographics: {len(demographic_list)}, Year buckets: {len(year_bucket_list)}")
+        
+        return jsonify({
+            'genres': genre_list,
+            'demographics': demographic_list,
+            'year_buckets': year_bucket_list
+        })
+    except Exception as e:
+        print(f"Error in get_quiz_options: {str(e)}")
+        return jsonify({'error': f'Failed to get quiz options: {str(e)}'}), 500
 
 
 @app.route('/api/quiz/recommend', methods=['POST'])
