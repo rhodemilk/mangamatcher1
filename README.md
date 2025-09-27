@@ -1,5 +1,6 @@
 # Project for ShellHacks 2026
 
-## Group Leader: Alex Gomez
+## Group Leader: Rhode and Gabi
 ## Prince: Ethan "the rod" Rodriguez
-## Peasants: Rhode, Gabbi
+## Heathen: Alexander da loser
+
