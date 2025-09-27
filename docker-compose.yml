@@ -1,14 +1,11 @@
 services:
-  # PostgreSQL Database
   postgres:
     image: postgres:15-alpine
-    container_name: mangamatcher_db
     restart: unless-stopped
     environment:
       POSTGRES_DB: mangamatcher
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-      POSTGRES_HOST_AUTH_METHOD: trust
     ports:
       - "5432:5432"
     volumes:
@@ -22,33 +19,39 @@ services:
       timeout: 5s
       retries: 5
 
-  # Optional: pgAdmin for database management (development only)
-  pgadmin:
-    image: dpage/pgadmin4:latest
-    container_name: mangamatcher_pgadmin
-    restart: unless-stopped
+  backend:
+    build:
+      context: ./backend
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@mangamatcher.dev
-      PGADMIN_DEFAULT_PASSWORD: admin123
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
-    ports:
-      - "5050:80"
-    volumes:
-      - pgadmin_data:/var/lib/pgadmin
+      DATABASE_URL: postgresql+psycopg2://postgres:password@postgres:5432/mangamatcher
+      PORT: "5000"
+      FLASK_ENV: development
     depends_on:
       postgres:
         condition: service_healthy
+    volumes:
+      - ./backend:/app
+    ports:
+      - "5000:5000"
     networks:
       - mangamatcher_network
-    profiles:
-      - dev # Only run with --profile dev
+
+  frontend:
+    build:
+      context: ./frontend
+    depends_on:
+      backend:
+        condition: service_started
+    environment:
+      - REACT_APP_API_URL=http://backend:5000
+    ports:
+      - "3000:80"
+    networks:
+      - mangamatcher_network
 
 volumes:
   postgres_data:
-    driver: local
-  pgadmin_data:
-    driver: local
+
 
 networks:
   mangamatcher_network:
-    driver: bridge

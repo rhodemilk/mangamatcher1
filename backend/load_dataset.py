@@ -28,10 +28,13 @@ def load_manga_dataset(csv_file_path):
         print(f"Found {len(df)} manga entries in the dataset")
         print(f"Columns: {list(df.columns)}")
 
-        # Clear existing manga data (optional - comment out if you want to keep existing data)
-        print("Clearing existing manga data...")
-        Manga.query.delete()
-        db.session.commit()
+        # Skip reload if data already present
+        existing_count = Manga.query.count()
+        if existing_count > 0:
+            print(
+                f"Manga table already populated with {existing_count} entries. Skipping reload."
+            )
+            return True
 
         # Load data into database
         loaded_count = 0

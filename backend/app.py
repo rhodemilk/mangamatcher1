@@ -240,11 +240,14 @@ def create_tables():
     db.create_all()
 
 
-if __name__ == '__main__':
-    # Create tables before running the app
+def run():
     with app.app_context():
         create_tables()
 
     port = int(os.getenv('PORT', '5000'))
     debug = os.getenv('FLASK_ENV') == 'development'
     app.run(host='0.0.0.0', port=port, debug=debug)
+
+
+if __name__ == '__main__':
+    run()

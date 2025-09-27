@@ -26,14 +26,18 @@ MangaMatcher is a full-stack web application designed for hackathon development.
 ```
 mangamatcher1/
 ├── backend/
-│   ├── app.py              # Flask API with User & Manga models
+│   ├── app.py              # Flask API with recommendation logic
+│   ├── Dockerfile          # Backend Docker image definition
+│   ├── entrypoint.sh       # Wait for DB + seed dataset
+│   ├── load_dataset.py     # CSV loader used by entrypoint
 │   └── requirements.txt    # Python dependencies
 ├── frontend/
+│   ├── Dockerfile          # Multi-stage build serving React via Nginx
 │   └── src/
-│       └── App.js          # React app with API integration
-├── docker-compose.yml      # PostgreSQL & pgAdmin setup
-├── README.md              # This file
-└── LICENSE                # MIT License
+│       └── App.js          # React quiz + recommendations UI
+├── docker-compose.yml      # One-command stack (DB, API, UI)
+├── init.sql                # Initial DB schema/data executed by Postgres
+└── README.md               # This file
 ```
 
 ---
@@ -42,91 +46,35 @@ mangamatcher1/
 
 ### Prerequisites
 
-- **Python 3.8+**
-- **Node.js 16+** (for React development)
-- **Docker & Docker Compose** (for database)
-- **Git**
+- Docker Desktop (or Docker Engine + Compose Plugin)
+- Git
 
-### 1. Clone the Repository
+### One-Command Dev Environment
 
 ```bash
 git clone https://github.com/rhodemilk/mangamatcher1.git
 cd mangamatcher1
+
+# Build and start database, backend API, and frontend UI
+docker compose up --build
 ```
 
-### 2. Set Up the Database
+Open `http://localhost:3000` for the React UI, which talks to the Flask API running at `http://localhost:5000`. Postgres is exposed on `localhost:5432` (user `postgres`, password `password`).
+
+The backend container waits for Postgres, creates tables, and seeds the `manga` dataset automatically on first run.
+
+To stop everything:
 
 ```bash
-# Start PostgreSQL with Docker
-docker-compose up -d
-
-# Optional: Start with pgAdmin for database management
-docker-compose --profile dev up -d
+docker compose down
 ```
 
-**Database Access:**
-- **PostgreSQL:** `localhost:5432`
-- **Database:** `mangamatcher`
-- **Username:** `postgres`
-- **Password:** `password`
-- **pgAdmin** (dev profile): `http://localhost:5050`
-  - Email: `admin@mangamatcher.dev`
-  - Password: `admin123`
-
-### 3. Set Up the Backend (Flask API)
+To reset the database volume as well:
 
 ```bash
-# Navigate to backend directory
-cd backend/
-
-# Create virtual environment
-python -m venv venv
-
-# Activate virtual environment
-# On Windows:
-venv\Scripts\activate
-# On macOS/Linux:
-source venv/bin/activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Create .env file (optional)
-echo "DATABASE_URL=postgresql://postgres:password@localhost:5432/mangamatcher" > .env
-echo "FLASK_ENV=development" >> .env
-echo "PORT=5000" >> .env
-
-# Run the Flask server
-python app.py
+docker compose down -v
+docker compose up --build
 ```
-
-**Backend will be available at:** `http://localhost:5000`
-
-### 4. Set Up the Frontend (React)
-
-```bash
-# In a new terminal, navigate to frontend
-cd frontend/
-
-# Initialize React project (first time only)
-npx create-react-app . --template typescript
-# OR for JavaScript:
-npx create-react-app .
-
-# Install additional dependencies
-npm install axios  # for API calls
-
-# Replace src/App.js with our custom App.js
-# (Our App.js is already in frontend/src/App.js)
-
-# Create .env file for API URL
-echo "REACT_APP_API_URL=http://localhost:5000" > .env
-
-# Start development server
-npm start
-```
-
-**Frontend will be available at:** `http://localhost:3000`
 
 ---
 
@@ -164,54 +112,23 @@ The Flask backend provides the following REST API endpoints:
 
 ## 🔧 Development Commands
 
-### Database Management
+If you prefer running services locally without Docker:
 
 ```bash
-# Start database
-docker-compose up -d
-
-# Stop database
-docker-compose down
-
-# View logs
-docker-compose logs postgres
-
-# Reset database (removes all data)
-docker-compose down -v
-docker-compose up -d
-```
-
-### Backend Development
-
-```bash
-cd backend/
-
-# Install new package
-pip install package_name
-pip freeze > requirements.txt
-
-# Run with debug mode
-export FLASK_ENV=development
+# Backend
+cd backend
+python -m venv venv && source venv/bin/activate
+pip install -r requirements.txt
+export DATABASE_URL=postgresql://postgres:password@localhost:5432/mangamatcher
 python app.py
 
-# Run tests (when added)
-pytest
+# Frontend
+cd frontend
+npm install
+npm start
 ```
 
-### Frontend Development
-
-```bash
-cd frontend/
-
-# Install new package
-npm install package-name
-
-# Build for production
-npm run build
-
-# Run tests
-npm test
-```
+You can still use `docker compose up postgres` to run only the database locally.
 
 ---
 
