@@ -168,45 +168,48 @@ def create_manga():
         return jsonify({'error': 'Manga creation failed'}), 500
 
 # Quiz recommendation system
+
+
 def get_manga_features():
     """Get all manga from database and create feature vectors"""
     manga_list = Manga.query.all()
     if not manga_list:
         return None, None, None
-    
+
     # Create feature strings for each manga
     features = []
     manga_data = []
-    
+
     for manga in manga_list:
         # Combine title, author, genre, tags, demographic, and year_bucket
         feature_text = f"{manga.title} {manga.author or ''} {manga.genre or ''} {manga.tags or ''} {manga.demographic or ''} {manga.year_bucket or ''}"
         features.append(feature_text)
         manga_data.append(manga)
-    
+
     # Create TF-IDF vectors
     vectorizer = TfidfVectorizer(max_features=1000, stop_words='english')
     feature_matrix = vectorizer.fit_transform(features)
-    
+
     return feature_matrix, manga_data, vectorizer
+
 
 def get_quiz_recommendations(genres, audience, eras, vibe=""):
     """Get recommendations based on quiz answers"""
     feature_matrix, manga_data, vectorizer = get_manga_features()
-    
+
     if feature_matrix is None:
         return []
-    
+
     # Create query from user preferences
     query_text = f"{' '.join(genres)} {' '.join(audience)} {' '.join(eras)} {vibe}"
     query_vector = vectorizer.transform([query_text])
-    
+
     # Calculate similarities
     similarities = cosine_similarity(query_vector, feature_matrix).flatten()
-    
+
     # Get top recommendations
     top_indices = np.argsort(similarities)[::-1][:10]  # Top 10
-    
+
     recommendations = []
     for idx in top_indices:
         if similarities[idx] > 0:  # Only include positive similarities
@@ -215,8 +218,9 @@ def get_quiz_recommendations(genres, audience, eras, vibe=""):
                 'manga': manga.to_dict(),
                 'similarity_score': float(similarities[idx])
             })
-    
+
     return recommendations
+
 
 @app.route('/api/quiz/options', methods=['GET'])
 def get_quiz_options():
@@ -224,39 +228,41 @@ def get_quiz_options():
     # Get unique genres from database
     genres = db.session.query(Manga.genre).distinct().all()
     genre_list = [g[0] for g in genres if g[0]]
-    
+
     # Get unique demographics
     demographics = db.session.query(Manga.demographic).distinct().all()
     demographic_list = [d[0] for d in demographics if d[0]]
-    
+
     # Get unique year buckets
     year_buckets = db.session.query(Manga.year_bucket).distinct().all()
     year_bucket_list = [y[0] for y in year_buckets if y[0]]
-    
+
     return jsonify({
         'genres': genre_list,
         'demographics': demographic_list,
         'year_buckets': year_bucket_list
     })
 
+
 @app.route('/api/quiz/recommend', methods=['POST'])
 def quiz_recommend():
     """Get manga recommendations based on quiz answers"""
     data = request.get_json()
-    
+
     if not data:
         return jsonify({'error': 'No data provided'}), 400
-    
+
     genres = data.get('genres', [])
     audience = data.get('audience', [])
     eras = data.get('eras', [])
     vibe = data.get('vibe', '')
-    
+
     if not genres and not audience and not eras:
         return jsonify({'error': 'At least one preference must be selected'}), 400
-    
+
     try:
-        recommendations = get_quiz_recommendations(genres, audience, eras, vibe)
+        recommendations = get_quiz_recommendations(
+            genres, audience, eras, vibe)
         return jsonify({
             'recommendations': recommendations,
             'total_found': len(recommendations)
