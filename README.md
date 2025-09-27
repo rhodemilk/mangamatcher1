@@ -59,7 +59,7 @@ cd mangamatcher1
 docker compose up --build
 ```
 
-Open `http://localhost:3000` for the React UI, which talks to the Flask API running at `http://localhost:5000`. Postgres is exposed on `localhost:5432` (user `postgres`, password `password`).
+Open `http://localhost:3000` for the React UI, which talks to the Flask API running at `http://localhost:8000`. Postgres is exposed on `localhost:5432` (user `postgres`, password `password`).
 
 The backend container waits for Postgres, creates tables, and seeds the `manga` dataset automatically on first run.
 
@@ -244,7 +244,7 @@ cd frontend && npm install
 ```
 
 **Port Already in Use:**
-- Backend: Change PORT in .env or kill process on port 5000
+- Backend: Change PORT in .env or kill process on port 8000
 - Frontend: React will prompt to use different port
 - Database: Change port mapping in docker-compose.yml
 

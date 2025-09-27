@@ -244,7 +244,7 @@ def run():
     with app.app_context():
         create_tables()
 
-    port = int(os.getenv('PORT', '5000'))
+    port = int(os.getenv('PORT', '8000'))
     debug = os.getenv('FLASK_ENV') == 'development'
     app.run(host='0.0.0.0', port=port, debug=debug)
 
