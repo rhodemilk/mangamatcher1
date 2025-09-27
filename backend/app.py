@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
+from datetime import datetime, timezone
 import os
 from dotenv import load_dotenv
 import numpy as np
@@ -15,17 +15,21 @@ app = Flask(__name__)
 CORS(app, origins=['http://localhost:3000', 'http://127.0.0.1:3000'])
 
 # Database configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///mangamatcher.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
+    'DATABASE_URL', 'sqlite:///mangamatcher.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
 # Models
+
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(
+        db.DateTime, default=lambda: datetime.now(timezone.utc))
 
     def to_dict(self):
         return {
@@ -34,6 +38,7 @@ class User(db.Model):
             'email': self.email,
             'created_at': self.created_at.isoformat()
         }
+
 
 class Manga(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -55,7 +60,8 @@ class Manga(db.Model):
     year = db.Column(db.Integer)
     year_bucket = db.Column(db.String(20))  # classic, 2000s, modern
     amazon_link = db.Column(db.String(500))
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(
+        db.DateTime, default=lambda: datetime.now(timezone.utc))
 
     def to_dict(self):
         return {
@@ -82,6 +88,8 @@ class Manga(db.Model):
         }
 
 # Routes
+
+
 @app.route('/')
 def hello():
     return jsonify({
@@ -94,14 +102,16 @@ def hello():
         }
     })
 
+
 @app.route('/health')
 def health_check():
     try:
         # simple DB check
         db.session.execute(db.select(db.func.count(Manga.id)))
-        return jsonify({'status': 'healthy', 'timestamp': datetime.utcnow().isoformat()})
+        return jsonify({'status': 'healthy', 'timestamp': datetime.now(timezone.utc).isoformat()})
     except Exception as e:
         return jsonify({'status': 'degraded', 'error': str(e)}), 500
+
 
 @app.route('/api/users', methods=['GET'])
 def get_users():
@@ -110,6 +120,7 @@ def get_users():
         return jsonify([user.to_dict() for user in users])
     except Exception as e:
         return jsonify({'error': f'Failed to load users: {str(e)}'}), 500
+
 
 @app.route('/api/manga', methods=['GET'])
 def get_manga():
@@ -120,6 +131,7 @@ def get_manga():
         return jsonify({'error': f'Failed to load manga: {str(e)}'}), 500
 
 # Quiz recommendation system
+
 
 def get_manga_features():
     """Get all manga from database and create feature vectors. Returns (feature_matrix, manga_data, vectorizer)."""
@@ -149,12 +161,14 @@ def get_quiz_recommendations(genres, audience, eras, vibe=None):
         return []
     if vibe is None:
         vibe = []
-    query_text = f"{' '.join(genres)} {' '.join(audience)} {' '.join(eras)} {' '.join(vibe)}".strip()
+    query_text = f"{' '.join(genres)} {' '.join(audience)} {' '.join(eras)} {' '.join(vibe)}".strip(
+    )
     if not query_text:
         return []
     try:
         query_vector = vectorizer.transform([query_text])
-        similarities = cosine_similarity(query_vector, feature_matrix).flatten()
+        similarities = cosine_similarity(
+            query_vector, feature_matrix).flatten()
         top_indices = np.argsort(similarities)[::-1][:10]
         recommendations = []
         for idx in top_indices:
@@ -180,7 +194,8 @@ def get_quiz_options():
         demographic_list = [d[0] for d in demographics if d[0]]
         year_buckets = db.session.query(Manga.year_bucket).distinct().all()
         year_bucket_list = [y[0] for y in year_buckets if y[0]]
-        print(f"Quiz options - Genres: {len(genre_list)}, Demographics: {len(demographic_list)}, Year buckets: {len(year_bucket_list)}")
+        print(
+            f"Quiz options - Genres: {len(genre_list)}, Demographics: {len(demographic_list)}, Year buckets: {len(year_bucket_list)}")
         return jsonify({
             'genres': genre_list,
             'demographics': demographic_list,
@@ -207,7 +222,8 @@ def quiz_recommend():
         return jsonify({'error': 'At least one preference must be selected'}), 400
 
     try:
-        recommendations = get_quiz_recommendations(genres, audience, eras, vibe)
+        recommendations = get_quiz_recommendations(
+            genres, audience, eras, vibe)
         if not recommendations:
             # Graceful empty case
             return jsonify({'recommendations': [], 'total_found': 0, 'message': 'No matching manga found for your selections.'})

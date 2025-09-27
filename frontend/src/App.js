@@ -11,6 +11,9 @@ function App() {
 
   // Handle quiz completion
   const handleQuizComplete = ({ recommendations: recs, message }) => {
+    console.log('Quiz completed with data:', { recs, message });
+    console.log('Recommendations array:', recs);
+    console.log('Array length:', recs?.length);
     setRecommendations(recs || []);
     setCurrentView('recommendations');
     setError('');

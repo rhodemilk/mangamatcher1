@@ -1,270 +1,136 @@
-# 🌸 MangaMatcher - ShellHacks 2026
+# 🌸 MangaMatcher
 
-> A Flask/React/PostgreSQL web application for manga enthusiasts to discover, rate, and match their preferences.
+A React + Flask application that helps you discover manga based on your preferences through an interactive quiz.
 
-## 👥 Team
+## ✨ Features
 
-**Group Leaders:** Rhode & Gabi  
-**Prince:** Ethan "the rod" Rodriguez  
-**Heathen:** Alexander da loser  
+- **Interactive Quiz**: Answer questions about your preferences (genres, demographics, eras, mood)
+- **Smart Recommendations**: AI-powered recommendations using TF-IDF and cosine similarity
+- **Beautiful UI**: Modern, responsive design with swipe-like interface
+- **Manga Database**: Curated collection of popular manga with detailed information
 
----
+## 🚀 Quick Start
 
-## 🚀 Project Overview
+### Prerequisites
 
-MangaMatcher is a full-stack web application designed for hackathon development. It features:
+- Python 3.8+ (with virtual environment)
+- Node.js 16+ (see installation instructions below)
 
-- **Backend:** Flask API with PostgreSQL database
-- **Frontend:** React application with modern UI
-- **Database:** PostgreSQL with Docker Compose setup
-- **Development:** Hot reload, API integration, and development tools
+### Installation
 
----
+1. **Clone and setup backend:**
+   ```bash
+   cd backend
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   pip install -r requirements.txt
+   ```
 
-## 📁 Project Structure
+2. **Install Node.js:**
+   ```bash
+   ./install_nodejs.sh
+   ```
+   Or manually download from [nodejs.org](https://nodejs.org)
+
+3. **Setup frontend:**
+   ```bash
+   cd frontend
+   npm install
+   ```
+
+### Running the Application
+
+**Option 1: Use the startup script (Recommended)**
+```bash
+./start.sh
+```
+
+**Option 2: Run manually**
+```bash
+# Terminal 1 - Backend
+cd backend
+source venv/bin/activate
+python app.py
+
+# Terminal 2 - Frontend  
+cd frontend
+npm start
+```
+
+The application will be available at:
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:8000
+
+## 🏗️ Project Structure
 
 ```
 mangamatcher1/
 ├── backend/
-│   ├── app.py              # Flask API with recommendation logic
-│   ├── Dockerfile          # Backend Docker image definition
-│   ├── entrypoint.sh       # Wait for DB + seed dataset
-│   ├── load_dataset.py     # CSV loader used by entrypoint
+│   ├── app.py              # Flask API server
+│   ├── load_dataset.py     # Data loading utilities
+│   ├── manga_with_amazon_links.csv  # Manga database
 │   └── requirements.txt    # Python dependencies
 ├── frontend/
-│   ├── Dockerfile          # Multi-stage build serving React via Nginx
-│   └── src/
-│       └── App.js          # React quiz + recommendations UI
-├── docker-compose.yml      # One-command stack (DB, API, UI)
-├── init.sql                # Initial DB schema/data executed by Postgres
-└── README.md               # This file
+│   ├── src/
+│   │   ├── App.js         # Main React component
+│   │   ├── Quiz.js        # Quiz component
+│   │   └── Recommendations.js  # Results component
+│   └── package.json       # Node.js dependencies
+├── start.sh               # Startup script
+└── install_nodejs.sh      # Node.js installation helper
 ```
 
----
+## 🔧 API Endpoints
 
-## 🛠️ Quick Start Guide
-
-### Prerequisites
-
-- Docker Desktop (or Docker Engine + Compose Plugin)
-- Git
-
-### One-Command Dev Environment
-
-```bash
-git clone https://github.com/rhodemilk/mangamatcher1.git
-cd mangamatcher1
-
-# Build and start database, backend API, and frontend UI
-docker compose up --build
-```
-
-Open `http://localhost:3000` for the React UI, which talks to the Flask API running at `http://localhost:8000`. Postgres is exposed on `localhost:5432` (user `postgres`, password `password`).
-
-The backend container waits for Postgres, creates tables, and seeds the `manga` dataset automatically on first run.
-
-To stop everything:
-
-```bash
-docker compose down
-```
-
-To reset the database volume as well:
-
-```bash
-docker compose down -v
-docker compose up --build
-```
-
----
-
-## 🎯 API Endpoints
-
-The Flask backend provides the following REST API endpoints:
-
-### General
-- `GET /` - API welcome message
 - `GET /health` - Health check
+- `GET /api/quiz/options` - Get available quiz options
+- `POST /api/quiz/recommend` - Get manga recommendations
+- `GET /api/manga` - Get all manga data
 
-### Users
-- `GET /api/users` - List all users
-- `POST /api/users` - Create new user
-  ```json
-  {
-    "username": "otaku_user",
-    "email": "user@example.com"
-  }
-  ```
+## 🎯 How It Works
 
-### Manga
-- `GET /api/manga` - List all manga
-- `POST /api/manga` - Add new manga
-  ```json
-  {
-    "title": "Attack on Titan",
-    "author": "Hajime Isayama",
-    "genre": "Action",
-    "rating": 9.5
-  }
-  ```
+1. **Quiz**: Users answer questions about their preferences
+2. **Feature Extraction**: User preferences are converted to text features
+3. **Similarity Matching**: TF-IDF vectorization finds similar manga
+4. **Recommendations**: Top 10 most similar manga are returned
+5. **Interactive UI**: Users can like/pass through recommendations
 
----
+## 🛠️ Development
 
-## 🔧 Development Commands
+### Backend (Flask)
+- Uses SQLite database for simplicity
+- TF-IDF + cosine similarity for recommendations
+- CORS enabled for frontend communication
 
-If you prefer running services locally without Docker:
+### Frontend (React)
+- Modern React with hooks
+- Responsive design with CSS
+- Proxy configuration for API calls
 
-```bash
-# Backend
-cd backend
-python -m venv venv && source venv/bin/activate
-pip install -r requirements.txt
-export DATABASE_URL=postgresql://postgres:password@localhost:5432/mangamatcher
-python app.py
+## 📝 Notes
 
-# Frontend
-cd frontend
-npm install
-npm start
-```
-
-You can still use `docker compose up postgres` to run only the database locally.
-
----
-
-## 🚀 Deployment Notes
-
-For hackathon presentation/deployment:
-
-1. **Environment Variables:**
-   - Set `DATABASE_URL` for production database
-   - Set `REACT_APP_API_URL` for production API
-   - Set `FLASK_ENV=production`
-
-2. **Database Migration:**
-   - The app auto-creates tables on first run
-   - For production, consider using Flask-Migrate
-
-3. **Frontend Build:**
-   - Run `npm run build` to create production build
-   - Serve static files with your preferred method
-
----
-
-## 🛠️ Tech Stack
-
-### Backend
-- **Flask 2.3.3** - Web framework
-- **SQLAlchemy 2.0.21** - ORM
-- **PostgreSQL 15** - Database
-- **Flask-CORS** - Cross-origin requests
-- **python-dotenv** - Environment variables
-
-### Frontend
-- **React 18+** - UI library
-- **JavaScript/JSX** - Programming language
-- **Fetch API** - HTTP requests
-- **CSS3** - Styling
-
-### Development
-- **Docker Compose** - Database containerization
-- **pgAdmin 4** - Database administration
-- **Hot Reload** - Development efficiency
-
----
-
-## 🎮 Features Implemented
-
-✅ **Flask Backend API**
-- User management (CRUD)
-- Manga catalog (CRUD)
-- PostgreSQL integration
-- CORS enabled
-- Error handling
-- Health checks
-
-✅ **React Frontend**
-- User interface forms
-- API integration
-- Real-time data updates
-- Error handling
-- Responsive design
-- Loading states
-
-✅ **Database Setup**
-- PostgreSQL with Docker
-- Auto table creation
-- Development admin panel
-- Data persistence
-
----
-
-## 🎯 Next Steps for Hackathon
-
-### Core Features to Add
-1. **User Authentication** - Login/signup system
-2. **Manga Recommendations** - Matching algorithm based on preferences
-3. **Rating System** - User reviews and ratings
-4. **Search & Filter** - Find manga by genre, author, rating
-5. **User Profiles** - Personal manga lists and preferences
-
-### Advanced Features
-1. **Social Features** - Follow users, share recommendations
-2. **API Integration** - External manga databases (MyAnimeList, etc.)
-3. **Image Upload** - Manga cover images
-4. **Real-time Updates** - WebSocket for live recommendations
-5. **Mobile Responsive** - PWA capabilities
-
----
+- Database is automatically created on first run
+- All manga data is loaded from CSV file
+- No authentication required (simple demo app)
+- Uses port 8000 for backend, 3000 for frontend
 
 ## 🐛 Troubleshooting
 
-### Common Issues
+**Backend won't start:**
+- Check if port 8000 is available
+- Ensure virtual environment is activated
+- Run `pip install -r requirements.txt`
 
-**Database Connection Error:**
-```bash
-# Ensure PostgreSQL is running
-docker-compose ps
+**Frontend won't start:**
+- Ensure Node.js is installed: `node --version`
+- Run `npm install` in frontend directory
+- Check if port 3000 is available
 
-# Check database logs
-docker-compose logs postgres
-```
+**No recommendations:**
+- Check backend logs for errors
+- Ensure manga data is loaded (check database)
+- Verify API endpoints are responding
 
-**CORS Issues:**
-- Ensure Flask-CORS is installed and configured
-- Check API URL in React .env file
+## 📄 License
 
-**Module Not Found:**
-```bash
-# Backend
-cd backend && pip install -r requirements.txt
-
-# Frontend
-cd frontend && npm install
-```
-
-**Port Already in Use:**
-- Backend: Change PORT in .env or kill process on port 8000
-- Frontend: React will prompt to use different port
-- Database: Change port mapping in docker-compose.yml
-
----
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🙏 Acknowledgments
-
-- **ShellHacks 2026** for the amazing hackathon experience
-- **Flask & React** communities for excellent documentation
-- **PostgreSQL** for reliable database solutions
-- **Docker** for simplified development environment
-
----
-
-**Happy Hacking! 🚀**
-
-*Built with ❤️ by the MangaMatcher team*
+MIT License - feel free to use and modify!

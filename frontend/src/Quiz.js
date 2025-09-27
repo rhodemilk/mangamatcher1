@@ -3,7 +3,7 @@ import './Quiz.css';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
-function Quiz({ onQuizComplete }) {
+function Quiz({ onQuizComplete, onError }) {
     const [currentStep, setCurrentStep] = useState(1);
     const [quizOptions, setQuizOptions] = useState({
         genres: [],
@@ -28,7 +28,9 @@ function Quiz({ onQuizComplete }) {
                 const data = await response.json();
                 setQuizOptions(data);
             } catch (err) {
-                setError('Failed to load quiz options: ' + err.message);
+                const errorMsg = 'Failed to load quiz options: ' + err.message;
+                setError(errorMsg);
+                if (onError) onError(errorMsg);
             }
         };
         fetchQuizOptions();
@@ -91,9 +93,13 @@ function Quiz({ onQuizComplete }) {
             if (!response.ok) throw new Error('Failed to get recommendations');
 
             const data = await response.json();
-            onQuizComplete(data.recommendations);
+            console.log('Quiz API response:', data);
+            console.log('Calling onQuizComplete with:', data);
+            onQuizComplete(data);
         } catch (err) {
-            setError('Failed to get recommendations: ' + err.message);
+            const errorMsg = 'Failed to get recommendations: ' + err.message;
+            setError(errorMsg);
+            if (onError) onError(errorMsg);
         } finally {
             setLoading(false);
         }
