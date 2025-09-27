@@ -6,29 +6,50 @@ import Recommendations from './Recommendations';
 function App() {
   const [currentView, setCurrentView] = useState('quiz'); // 'quiz' or 'recommendations'
   const [recommendations, setRecommendations] = useState([]);
+  const [error, setError] = useState('');
+  const [info, setInfo] = useState('');
 
   // Handle quiz completion
-  const handleQuizComplete = (quizRecommendations) => {
-    setRecommendations(quizRecommendations);
+  const handleQuizComplete = ({ recommendations: recs, message }) => {
+    setRecommendations(recs || []);
     setCurrentView('recommendations');
+    setError('');
+    setInfo(message || (recs && recs.length === 0 ? 'No matching manga found for your selections.' : ''));
+  };
+
+  // Surface fetch/error from children
+  const handleError = (msg) => {
+    setError(msg || 'Something went wrong. Please try again.');
+    setInfo('');
   };
 
   // Handle back to quiz
   const handleBackToQuiz = () => {
     setCurrentView('quiz');
     setRecommendations([]);
+    setError('');
+    setInfo('');
   };
 
-  // Render different views
   if (currentView === 'quiz') {
-    return <Quiz onQuizComplete={handleQuizComplete} />;
+    return (
+      <div className="App">
+        {error && <div className="alert error">{error}</div>}
+        {info && <div className="alert info">{info}</div>}
+        <Quiz onQuizComplete={handleQuizComplete} onError={handleError} />
+      </div>
+    );
   }
 
   if (currentView === 'recommendations') {
-    return <Recommendations recommendations={recommendations} onBackToQuiz={handleBackToQuiz} />;
+    return (
+      <div className="App">
+        {error && <div className="alert error">{error}</div>}
+        {info && <div className="alert info">{info}</div>}
+        <Recommendations recommendations={recommendations} onBackToQuiz={handleBackToQuiz} />
+      </div>
+    );
   }
-
   return null;
 }
-
 export default App;
