@@ -1,11 +1,17 @@
+
+startersion: '3.8'
+
 services:
+  # PostgreSQL Database
   postgres:
     image: postgres:15-alpine
+    container_name: mangamatcher_db
     restart: unless-stopped
     environment:
       POSTGRES_DB: mangamatcher
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
+      POSTGRES_HOST_AUTH_METHOD: trust
     ports:
       - "5432:5432"
     volumes:
@@ -19,33 +25,57 @@ services:
       timeout: 5s
       retries: 5
 
-  backend:
-    build:
-      context: ./backend
+  # Optional: pgAdmin for database management (development only)
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: mangamatcher_pgadmin
+    restart: unless-stopped
     environment:
-      DATABASE_URL: postgresql+psycopg2://postgres:password@postgres:5432/mangamatcher
-      PORT: "8000"
-      FLASK_ENV: development
+      PGADMIN_DEFAULT_EMAIL: admin@mangamatcher.dev
+      PGADMIN_DEFAULT_PASSWORD: admin123
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
     depends_on:
       postgres:
         condition: service_healthy
+    networks:
+      - mangamatcher_network
+    profiles:
+      - dev # Only run with --profile dev
+
+  # Backend service for the Flask API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: mangamatcher_backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: "postgresql://postgres:password@postgres:5432/mangamatcher"
+      PORT: "5000"
+      FLASK_ENV: development
     volumes:
       - ./backend:/app
     ports:
-      - "8000:8000"
+      - "5000:5000"
+    depends_on:
+      postgres:
+        condition: service_healthy
     networks:
       - mangamatcher_network
 
+  # Frontend served by nginx from production build
   frontend:
     build:
       context: ./frontend
-    depends_on:
-      backend:
-        condition: service_started
-    environment:
-      - REACT_APP_API_URL=http://localhost:8000
+      dockerfile: Dockerfile
+    container_name: mangamatcher_frontend
+    restart: unless-stopped
     ports:
-      - "3000:80"
+      - "80:80"
     networks:
       - mangamatcher_network
 

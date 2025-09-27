@@ -16,9 +16,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+# Normalize line endings to LF in case file has CRLF on Windows host
+RUN sed -i 's/\r$//' /entrypoint.sh && chmod +x /entrypoint.sh
 
-EXPOSE 8000
+EXPOSE 5000
 
-ENTRYPOINT ["/entrypoint.sh"]
+# Use explicit shell interpreter to avoid exec errors on scripts with odd shebangs
+ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
 
