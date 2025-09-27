@@ -17,7 +17,7 @@ services:
     networks:
       - mangamatcher_network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d mangamatcher"]
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d mangamatcher" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -41,7 +41,7 @@ services:
     networks:
       - mangamatcher_network
     profiles:
-      - dev  # Only run with --profile dev
+      - dev # Only run with --profile dev
 
 volumes:
   postgres_data:
