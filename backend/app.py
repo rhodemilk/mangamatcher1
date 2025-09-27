@@ -13,7 +13,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, origins=['http://localhost:3000', 'http://127.0.0.1:3000'])  # Enable CORS for React frontend
+# Enable CORS for React frontend
+CORS(app, origins=['http://localhost:3000', 'http://127.0.0.1:3000'])
 
 # Database configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
@@ -201,8 +202,9 @@ def get_quiz_options():
         year_buckets = db.session.query(Manga.year_bucket).distinct().all()
         year_bucket_list = [y[0] for y in year_buckets if y[0]]
 
-        print(f"Quiz options - Genres: {len(genre_list)}, Demographics: {len(demographic_list)}, Year buckets: {len(year_bucket_list)}")
-        
+        print(
+            f"Quiz options - Genres: {len(genre_list)}, Demographics: {len(demographic_list)}, Year buckets: {len(year_bucket_list)}")
+
         return jsonify({
             'genres': genre_list,
             'demographics': demographic_list,
