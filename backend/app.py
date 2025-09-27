@@ -4,30 +4,23 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import os
 from dotenv import load_dotenv
-# pandas import removed - not needed for current functionality
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 # Load environment variables
 load_dotenv()
-
 app = Flask(__name__)
 # Enable CORS for React frontend
 CORS(app, origins=['http://localhost:3000', 'http://127.0.0.1:3000'])
 
 # Database configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
-    'DATABASE_URL',
-    'sqlite:///mangamatcher.db'
-)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///mangamatcher.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# Sample User model
-
-
+# Models
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
@@ -41,9 +34,6 @@ class User(db.Model):
             'email': self.email,
             'created_at': self.created_at.isoformat()
         }
-
-# Enhanced Manga model matching the dataset schema
-
 
 class Manga(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -92,8 +82,6 @@ class Manga(db.Model):
         }
 
 # Routes
-
-
 @app.route('/')
 def hello():
     return jsonify({
@@ -106,105 +94,93 @@ def hello():
         }
     })
 
-
 @app.route('/health')
 def health_check():
-    return jsonify({'status': 'healthy', 'timestamp': datetime.utcnow().isoformat()})
-
+    try:
+        # simple DB check
+        db.session.execute(db.select(db.func.count(Manga.id)))
+        return jsonify({'status': 'healthy', 'timestamp': datetime.utcnow().isoformat()})
+    except Exception as e:
+        return jsonify({'status': 'degraded', 'error': str(e)}), 500
 
 @app.route('/api/users', methods=['GET'])
 def get_users():
-    users = User.query.all()
-    return jsonify([user.to_dict() for user in users])
-
-
-# Removed POST endpoint for user creation - read-only system
-
+    try:
+        users = User.query.all()
+        return jsonify([user.to_dict() for user in users])
+    except Exception as e:
+        return jsonify({'error': f'Failed to load users: {str(e)}'}), 500
 
 @app.route('/api/manga', methods=['GET'])
 def get_manga():
-    manga_list = Manga.query.all()
-    return jsonify([manga.to_dict() for manga in manga_list])
-
-
-# Removed POST endpoint for manga creation - dataset is read-only
+    try:
+        manga_list = Manga.query.all()
+        return jsonify([manga.to_dict() for manga in manga_list])
+    except Exception as e:
+        return jsonify({'error': f'Failed to load manga: {str(e)}'}), 500
 
 # Quiz recommendation system
 
-
 def get_manga_features():
-    """Get all manga from database and create feature vectors"""
-    manga_list = Manga.query.all()
-    if not manga_list:
+    """Get all manga from database and create feature vectors. Returns (feature_matrix, manga_data, vectorizer)."""
+    try:
+        manga_list = Manga.query.all()
+        if not manga_list:
+            return None, None, None
+        features = []
+        manga_data = []
+        for manga in manga_list:
+            feature_text = f"{manga.title} {manga.author or ''} {manga.genre or ''} {manga.tags or ''} {manga.demographic or ''} {manga.year_bucket or ''}"
+            features.append(feature_text)
+            manga_data.append(manga)
+        vectorizer = TfidfVectorizer(max_features=1000, stop_words='english')
+        feature_matrix = vectorizer.fit_transform(features)
+        return feature_matrix, manga_data, vectorizer
+    except Exception as e:
+        # Log and surface a safe message
+        print(f"Error building feature matrix: {e}")
         return None, None, None
-
-    # Create feature strings for each manga
-    features = []
-    manga_data = []
-
-    for manga in manga_list:
-        # Combine title, author, genre, tags, demographic, and year_bucket
-        feature_text = f"{manga.title} {manga.author or ''} {manga.genre or ''} {manga.tags or ''} {manga.demographic or ''} {manga.year_bucket or ''}"
-        features.append(feature_text)
-        manga_data.append(manga)
-
-    # Create TF-IDF vectors
-    vectorizer = TfidfVectorizer(max_features=1000, stop_words='english')
-    feature_matrix = vectorizer.fit_transform(features)
-
-    return feature_matrix, manga_data, vectorizer
 
 
 def get_quiz_recommendations(genres, audience, eras, vibe=None):
     """Get recommendations based on quiz answers"""
     feature_matrix, manga_data, vectorizer = get_manga_features()
-
     if feature_matrix is None or manga_data is None or vectorizer is None:
         return []
-
-    # Create query from user preferences
     if vibe is None:
         vibe = []
-    query_text = f"{' '.join(genres)} {' '.join(audience)} {' '.join(eras)} {' '.join(vibe)}"
-    query_vector = vectorizer.transform([query_text])
-
-    # Calculate similarities
-    similarities = cosine_similarity(query_vector, feature_matrix).flatten()
-
-    # Get top recommendations
-    top_indices = np.argsort(similarities)[::-1][:10]  # Top 10
-
-    recommendations = []
-    for idx in top_indices:
-        if similarities[idx] > 0:  # Only include positive similarities
-            manga = manga_data[idx]
-            recommendations.append({
-                'manga': manga.to_dict(),
-                'similarity_score': float(similarities[idx])
-            })
-
-    return recommendations
+    query_text = f"{' '.join(genres)} {' '.join(audience)} {' '.join(eras)} {' '.join(vibe)}".strip()
+    if not query_text:
+        return []
+    try:
+        query_vector = vectorizer.transform([query_text])
+        similarities = cosine_similarity(query_vector, feature_matrix).flatten()
+        top_indices = np.argsort(similarities)[::-1][:10]
+        recommendations = []
+        for idx in top_indices:
+            if similarities[idx] > 0:
+                manga = manga_data[idx]
+                recommendations.append({
+                    'manga': manga.to_dict(),
+                    'similarity_score': float(similarities[idx])
+                })
+        return recommendations
+    except Exception as e:
+        print(f"Recommendation error: {e}")
+        return []
 
 
 @app.route('/api/quiz/options', methods=['GET'])
 def get_quiz_options():
     """Get available options for quiz questions"""
     try:
-        # Get unique genres from database
         genres = db.session.query(Manga.genre).distinct().all()
         genre_list = [g[0] for g in genres if g[0]]
-
-        # Get unique demographics
         demographics = db.session.query(Manga.demographic).distinct().all()
         demographic_list = [d[0] for d in demographics if d[0]]
-
-        # Get unique year buckets
         year_buckets = db.session.query(Manga.year_bucket).distinct().all()
         year_bucket_list = [y[0] for y in year_buckets if y[0]]
-
-        print(
-            f"Quiz options - Genres: {len(genre_list)}, Demographics: {len(demographic_list)}, Year buckets: {len(year_bucket_list)}")
-
+        print(f"Quiz options - Genres: {len(genre_list)}, Demographics: {len(demographic_list)}, Year buckets: {len(year_bucket_list)}")
         return jsonify({
             'genres': genre_list,
             'demographics': demographic_list,
@@ -218,8 +194,7 @@ def get_quiz_options():
 @app.route('/api/quiz/recommend', methods=['POST'])
 def quiz_recommend():
     """Get manga recommendations based on quiz answers"""
-    data = request.get_json()
-
+    data = request.get_json(silent=True)
     if not data:
         return jsonify({'error': 'No data provided'}), 400
 
@@ -228,30 +203,33 @@ def quiz_recommend():
     eras = data.get('eras', [])
     vibe = data.get('vibe', [])
 
-    if not genres and not audience and not eras and not vibe:
+    if not any([genres, audience, eras, vibe]):
         return jsonify({'error': 'At least one preference must be selected'}), 400
 
     try:
-        recommendations = get_quiz_recommendations(
-            genres, audience, eras, vibe)
-        return jsonify({
-            'recommendations': recommendations,
-            'total_found': len(recommendations)
-        })
+        recommendations = get_quiz_recommendations(genres, audience, eras, vibe)
+        if not recommendations:
+            # Graceful empty case
+            return jsonify({'recommendations': [], 'total_found': 0, 'message': 'No matching manga found for your selections.'})
+        return jsonify({'recommendations': recommendations, 'total_found': len(recommendations)})
     except (ValueError, AttributeError, IndexError) as e:
         return jsonify({'error': f'Recommendation failed: {str(e)}'}), 500
+    except Exception as e:
+        return jsonify({'error': f'Unexpected error: {str(e)}'}), 500
+
 
 # Initialize database
 
-
 def create_tables():
-    db.create_all()
+    try:
+        db.create_all()
+    except Exception as e:
+        print(f"DB init error: {e}")
 
 
 def run():
     with app.app_context():
         create_tables()
-
     port = int(os.getenv('PORT', '8000'))
     debug = os.getenv('FLASK_ENV') == 'development'
     app.run(host='0.0.0.0', port=port, debug=debug)
