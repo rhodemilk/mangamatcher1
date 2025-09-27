@@ -24,7 +24,7 @@ services:
       context: ./backend
     environment:
       DATABASE_URL: postgresql+psycopg2://postgres:password@postgres:5432/mangamatcher
-      PORT: "5000"
+      PORT: "8000"
       FLASK_ENV: development
     depends_on:
       postgres:
@@ -32,7 +32,7 @@ services:
     volumes:
       - ./backend:/app
     ports:
-      - "5000:5000"
+      - "8000:8000"
     networks:
       - mangamatcher_network
 
@@ -43,7 +43,7 @@ services:
       backend:
         condition: service_started
     environment:
-      - REACT_APP_API_URL=http://backend:5000
+      - REACT_APP_API_URL=http://localhost:8000
     ports:
       - "3000:80"
     networks:
