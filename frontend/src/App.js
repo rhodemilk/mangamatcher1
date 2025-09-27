@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import Quiz from './Quiz';
+import Recommendations from './Recommendations';
 
 // API base URL - can be moved to environment variables
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 function App() {
+  const [currentView, setCurrentView] = useState('quiz'); // 'quiz', 'recommendations', 'admin'
+  const [recommendations, setRecommendations] = useState([]);
   const [users, setUsers] = useState([]);
   const [manga, setManga] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -80,17 +84,50 @@ function App() {
     }
   };
 
-  // Load data on component mount
-  useEffect(() => {
-    fetchUsers();
-    fetchManga();
-  }, []);
+  // Handle quiz completion
+  const handleQuizComplete = (quizRecommendations) => {
+    setRecommendations(quizRecommendations);
+    setCurrentView('recommendations');
+  };
 
+  // Handle back to quiz
+  const handleBackToQuiz = () => {
+    setCurrentView('quiz');
+    setRecommendations([]);
+  };
+
+  // Load data on component mount (only for admin view)
+  useEffect(() => {
+    if (currentView === 'admin') {
+      fetchUsers();
+      fetchManga();
+    }
+  }, [currentView]);
+
+  // Render different views
+  if (currentView === 'quiz') {
+    return <Quiz onQuizComplete={handleQuizComplete} />;
+  }
+
+  if (currentView === 'recommendations') {
+    return <Recommendations recommendations={recommendations} onBackToQuiz={handleBackToQuiz} />;
+  }
+
+  // Admin view (original functionality)
   return (
     <div className="App">
       <header className="App-header">
         <h1>🌸 MangaMatcher</h1>
-        <p>ShellHacks 2026 Project</p>
+        <p>ShellHacks 2026 Project - Admin Panel</p>
+        
+        <div className="view-switcher">
+          <button 
+            onClick={() => setCurrentView('quiz')} 
+            className="btn btn-primary"
+          >
+            🌸 Take Quiz
+          </button>
+        </div>
         
         {error && (
           <div className="error-message">
