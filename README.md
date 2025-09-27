@@ -11,51 +11,53 @@ A React + Flask application that helps you discover manga based on your preferen
 
 ## 🚀 Quick Start
 
+> **📖 For detailed setup instructions, see [SETUP_GUIDE.md](SETUP_GUIDE.md)**
+
 ### Prerequisites
 
-- Python 3.8+ (with virtual environment)
+- Python 3.8+ (Python 3.13+ recommended)
 - Node.js 16+ (see installation instructions below)
+- Git
 
-### Installation
+### Quick Installation
 
-1. **Clone and setup backend:**
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/rhodemilk/mangamatcher1.git
+   cd mangamatcher1
+   ```
+
+2. **Setup backend:**
    ```bash
    cd backend
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
+   pip install --upgrade pip
    pip install -r requirements.txt
+   cd ..
    ```
 
-2. **Install Node.js:**
+3. **Install Node.js:**
    ```bash
    ./install_nodejs.sh
    ```
-   Or manually download from [nodejs.org](https://nodejs.org)
 
-3. **Setup frontend:**
+4. **Setup frontend:**
    ```bash
    cd frontend
    npm install
+   cd ..
    ```
 
-### Running the Application
+5. **Start the application:**
+   ```bash
+   ./start.sh
+   ```
 
-**Option 1: Use the startup script (Recommended)**
-```bash
-./start.sh
-```
-
-**Option 2: Run manually**
-```bash
-# Terminal 1 - Backend
-cd backend
-source venv/bin/activate
-python app.py
-
-# Terminal 2 - Frontend  
-cd frontend
-npm start
-```
+6. **Verify your setup (optional):**
+   ```bash
+   ./verify_setup.sh
+   ```
 
 The application will be available at:
 - **Frontend**: http://localhost:3000
@@ -77,7 +79,12 @@ mangamatcher1/
 │   │   └── Recommendations.js  # Results component
 │   └── package.json       # Node.js dependencies
 ├── start.sh               # Startup script
-└── install_nodejs.sh      # Node.js installation helper
+├── status.sh              # Status check script
+├── verify_setup.sh        # Setup verification script
+├── install_nodejs.sh      # Node.js installation helper
+├── use_node.sh            # Node.js wrapper script
+├── SETUP_GUIDE.md         # Comprehensive setup instructions
+└── README.md              # This file
 ```
 
 ## 🔧 API Endpoints
