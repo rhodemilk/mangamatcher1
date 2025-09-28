@@ -24,7 +24,7 @@
 }
 
 .home-title {
-    font-size: 4rem;
+  font-size: 4rem;
   font-weight: bold;
   color: #ffffff;
   margin-bottom: 10px;
@@ -42,11 +42,10 @@
 }
 
 .description-card {
-  background:background(rgb(37, 58, 86));
+  background: background(rgb(37, 58, 86));
   padding: 30px;
   border-radius: 15px;
   margin-bottom: 40px;
-  border-left: 5px solid #e91e63;
 }
 
 .description-card h2 {
@@ -153,41 +152,41 @@
   .home-container {
     padding: 10px;
   }
-  
+
   .home-content {
     padding: 20px;
   }
-  
+
   .home-title {
     font-size: 2.5rem;
   }
-  
+
   .home-subtitle {
     font-size: 1.2rem;
   }
-  
+
   .description-card {
     padding: 20px;
   }
-  
+
   .description-card h2 {
     font-size: 1.5rem;
   }
-  
-  
+
+
   .cta-section {
     padding: 30px 20px;
   }
-  
+
   .cta-section h2 {
     font-size: 1.8rem;
   }
-  
+
   .steps {
     grid-template-columns: 1fr;
     gap: 20px;
   }
-  
+
   .step {
     padding: 20px;
   }
@@ -197,19 +196,19 @@
   .home-title {
     font-size: 2rem;
   }
-  
+
   .home-subtitle {
     font-size: 1rem;
   }
-  
+
   .description-card h2 {
     font-size: 1.3rem;
   }
-  
+
   .cta-section h2 {
     font-size: 1.5rem;
   }
-  
+
   .start-quiz-btn {
     padding: 12px 30px;
     font-size: 1.1rem;
