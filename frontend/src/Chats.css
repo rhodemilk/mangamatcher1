@@ -71,16 +71,17 @@
 }
 
 .character-list {
-    background: white;
+    background: rgb(37, 58, 86);
     border-radius: 20px;
     padding: 25px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     overflow-y: auto;
     max-height: 100%;
+    color: white;
 }
 
 .character-list h2 {
-    color: #333;
+    color: white;
     margin-bottom: 20px;
     text-align: center;
 }
@@ -92,7 +93,7 @@
 }
 
 .character-card {
-    background: rgb(37, 58, 86);
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     padding: 20px;
     cursor: pointer;
@@ -103,7 +104,7 @@
 }
 
 .character-card:hover {
-    background: rgb(47, 68, 96);
+    background: rgba(255, 255, 255, 0.2);
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
