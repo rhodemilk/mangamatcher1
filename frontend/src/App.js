@@ -43,7 +43,7 @@ function App() {
             <div className="nav-links">
               <Link to="/" className="nav-link">Quiz</Link>
               <Link to="/chats" className="nav-link">Chats</Link>
-              <Link to="/profile" className="nav-link">Profile</Link>
+              <Link to="/profile" className="nav-link profile-icon" title="Profile">👤</Link>
             </div>
           </div>
         </nav>
