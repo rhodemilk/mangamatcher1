@@ -1,0 +1,219 @@
+.home-container {
+  min-height: 100vh;
+  background: url('../public/4JY2Ct-3785027865.jpg') center/cover no-repeat;
+  background-attachment: fixed;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-content {
+  max-width: 1200px;
+  width: 100%;
+  background: rgb(37, 58, 86);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.hero-section {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.home-title {
+    font-size: 4rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.home-subtitle {
+  font-size: 1.5rem;
+  color: white;
+  margin-bottom: 0;
+}
+
+.description-section {
+  margin-bottom: 50px;
+}
+
+.description-card {
+  background:background(rgb(37, 58, 86));
+  padding: 30px;
+  border-radius: 15px;
+  margin-bottom: 40px;
+  border-left: 5px solid #e91e63;
+}
+
+.description-card h2 {
+  color: #fffbfc;
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+.description-card p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: white;
+}
+
+
+.cta-section {
+  text-align: center;
+  background: rgb(37, 58, 86);
+  color: white;
+  padding: 40px;
+  border-radius: 15px;
+  margin-bottom: 50px;
+}
+
+.cta-section h2 {
+  margin-bottom: 15px;
+  font-size: 2.2rem;
+}
+
+.cta-section p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  opacity: 0.9;
+}
+
+.start-quiz-btn {
+  background: white;
+  color: #e91e63;
+  border: none;
+  padding: 15px 40px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.start-quiz-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  background: #f8f9fa;
+}
+
+.how-it-works {
+  text-align: center;
+}
+
+.how-it-works h2 {
+  color: #e91e63;
+  margin-bottom: 40px;
+  font-size: 2rem;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.step {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.step-number {
+  background: #e91e63;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0 auto 20px;
+}
+
+.step h3 {
+  color: #e91e63;
+  margin-bottom: 15px;
+  font-size: 1.4rem;
+}
+
+.step p {
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .home-container {
+    padding: 10px;
+  }
+  
+  .home-content {
+    padding: 20px;
+  }
+  
+  .home-title {
+    font-size: 2.5rem;
+  }
+  
+  .home-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .description-card {
+    padding: 20px;
+  }
+  
+  .description-card h2 {
+    font-size: 1.5rem;
+  }
+  
+  
+  .cta-section {
+    padding: 30px 20px;
+  }
+  
+  .cta-section h2 {
+    font-size: 1.8rem;
+  }
+  
+  .steps {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .step {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-title {
+    font-size: 2rem;
+  }
+  
+  .home-subtitle {
+    font-size: 1rem;
+  }
+  
+  .description-card h2 {
+    font-size: 1.3rem;
+  }
+  
+  .cta-section h2 {
+    font-size: 1.5rem;
+  }
+  
+  .start-quiz-btn {
+    padding: 12px 30px;
+    font-size: 1.1rem;
+  }
+}
