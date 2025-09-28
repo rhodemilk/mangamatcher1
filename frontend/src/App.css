@@ -65,6 +65,16 @@
     color: white;
 }
 
+.profile-icon {
+    font-size: 1.2rem;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+}
+
 .App-header {
     background: rgba(255, 255, 255, 0.95);
     padding: 2rem 1rem;

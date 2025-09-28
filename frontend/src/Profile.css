@@ -5,6 +5,16 @@
     font-family: 'Arial', sans-serif;
 }
 
+.profile-main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: rgb(37, 58, 86);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
 .profile-header {
     text-align: center;
     color: white;
@@ -14,7 +24,7 @@
 .profile-header h1 {
     font-size: 2.5rem;
     margin: 0 0 10px 0;
-    
+
 }
 
 .profile-header p {
@@ -28,33 +38,81 @@
     margin: 0 auto;
 }
 
-.stats-section {
-    background: white;
-    border-radius: 20px;
-    padding: 30px;
+.journey-section {
     margin-bottom: 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-.stats-section h2 {
-    color: #333;
+.journey-section h2 {
+    color: white;
     margin-bottom: 20px;
     text-align: center;
 }
 
-.stats-grid {
+.journey-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
 }
 
-.stat-card {
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+.journey-card {
+    background: rgb(37, 58, 86);
     padding: 25px;
-    border-radius: 15px;
+    border-radius: 20px;
     text-align: center;
-    border: 2px solid #e9ecef;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    color: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.journey-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    pointer-events: none;
+}
+
+.journey-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    background: rgb(47, 68, 96);
+}
+
+.journey-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 1;
+}
+
+.journey-content {
+    position: relative;
+    z-index: 1;
+}
+
+.journey-number {
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.journey-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.journey-description {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    line-height: 1.4;
 }
 
 .stat-card:hover {
@@ -76,15 +134,11 @@
 }
 
 .preferences-section {
-    background: white;
-    border-radius: 20px;
-    padding: 30px;
     margin-bottom: 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .preferences-section h2 {
-    color: #333;
+    color: white;
     margin-bottom: 25px;
     text-align: center;
 }
@@ -126,15 +180,11 @@
 }
 
 .liked-manga-section {
-    background: white;
-    border-radius: 20px;
-    padding: 30px;
     margin-bottom: 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .liked-manga-section h2 {
-    color: #333;
+    color: white;
     margin-bottom: 25px;
     text-align: center;
 }
@@ -146,16 +196,18 @@
 }
 
 .profile-manga-card {
-    background: #f8f9fa;
+    background: rgb(37, 58, 86);
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .profile-manga-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    background: rgb(47, 68, 96);
 }
 
 .profile-manga-image {
@@ -187,14 +239,14 @@
 }
 
 .profile-manga-info h3 {
-    color: #333;
+    color: white;
     margin: 0 0 8px 0;
     font-size: 1.2rem;
     line-height: 1.3;
 }
 
 .profile-manga-info p {
-    color: #666;
+    color: rgba(255, 255, 255, 0.8);
     margin: 0 0 15px 0;
     font-style: italic;
 }
@@ -213,13 +265,13 @@
 }
 
 .profile-genre {
-    background: #e3f2fd;
-    color: #1976d2;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
 }
 
 .profile-demographic {
-    background: #f3e5f5;
-    color: #7b1fa2;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
 }
 
 .profile-amazon-link {
@@ -236,6 +288,33 @@
 
 .profile-amazon-link:hover {
     background: #e6850e;
+}
+
+.profile-manga-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.profile-chat-character-btn {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.profile-chat-character-btn:hover {
+    background: #5a6fd8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
 .empty-state {

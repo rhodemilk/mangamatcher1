@@ -156,15 +156,17 @@ function Chats() {
     if (likedManga.length === 0) {
         return (
             <div className="chats-container">
-                <div className="chats-header">
-                    <h1>💬 Character Yaps</h1>
-                    <p>Yap with your favorite manga characters!</p>
-                </div>
-                <div className="empty-chats">
-                    <div className="empty-state">
-                        <h2>🌟 Start Your Character Journey</h2>
-                        <p>Take a quiz and swipe on some manga to unlock character chats</p>
-                        <Link to="/" className="btn btn-primary">Take Quiz</Link>
+                <div className="chats-content">
+                    <div className="chats-header">
+                        <h1>💬 Character Yaps</h1>
+                        <p>Yap with your favorite manga characters!</p>
+                    </div>
+                    <div className="empty-chats">
+                        <div className="empty-state">
+                            <h2>🌟 Start Your Character Journey</h2>
+                            <p>Take a quiz and swipe on some manga to unlock character chats</p>
+                            <Link to="/" className="btn btn-primary">Take Quiz</Link>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -173,12 +175,13 @@ function Chats() {
 
     return (
         <div className="chats-container">
-            <div className="chats-header">
-                <h1>Character Chat</h1>
-                <p>Chat with your favorite manga characters!</p>
-            </div>
-
             <div className="chats-content">
+                <div className="chats-header">
+                    <h1>Character Chat</h1>
+                    <p>Chat with your favorite manga characters!</p>
+                </div>
+
+                <div className="chats-main-content">
                 <div className="character-list">
                     <h2>Your Characters</h2>
                     <div className="character-grid">
@@ -196,7 +199,16 @@ function Chats() {
                                     onClick={() => openChat(manga)}
                                 >
                                     <div className="character-avatar">
-                                        <span className="avatar-icon">👤</span>
+                                        <img
+                                            src={manga.manga.cover_image_url}
+                                            alt={`${character.name} from ${manga.manga.title}`}
+                                            className="avatar-image"
+                                            onError={(e) => {
+                                                e.target.style.display = 'none';
+                                                e.target.nextSibling.style.display = 'flex';
+                                            }}
+                                        />
+                                        <span className="avatar-icon" style={{ display: 'none' }}>👤</span>
                                     </div>
                                     <div className="character-info">
                                         <h3>{character.name}</h3>
@@ -258,6 +270,7 @@ function Chats() {
                             <p>Choose from your liked manga characters above.</p>
                         </div>
                     )}
+                </div>
                 </div>
             </div>
         </div>

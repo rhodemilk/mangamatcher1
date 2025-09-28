@@ -5,6 +5,16 @@
     font-family: 'Arial', sans-serif;
 }
 
+.chats-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: rgb(37, 58, 86);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
 .chats-header {
     text-align: center;
     color: white;
@@ -30,22 +40,23 @@
 }
 
 .empty-state {
-    background: white;
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     padding: 60px 30px;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.2);
     max-width: 500px;
     width: 100%;
+    color: white;
 }
 
 .empty-state h2 {
-    color: #333;
+    color: white;
     margin-bottom: 15px;
 }
 
 .empty-state p {
-    color: #666;
+    color: rgba(255, 255, 255, 0.8);
     margin-bottom: 25px;
     font-size: 1.1rem;
 }
@@ -80,19 +91,20 @@
 }
 
 .character-card {
-    background: #f8f9fa;
+    background: rgb(37, 58, 86);
     border-radius: 15px;
     padding: 20px;
     cursor: pointer;
     transition: all 0.2s ease;
     border: 2px solid transparent;
     position: relative;
+    color: white;
 }
 
 .character-card:hover {
-    background: #e9ecef;
+    background: rgb(47, 68, 96);
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .character-card.active {
@@ -112,6 +124,15 @@
     margin-bottom: 15px;
 }
 
+.avatar-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+    border: 2px solid #667eea;
+}
+
 .avatar-icon {
     font-size: 2rem;
     background: #667eea;
@@ -125,19 +146,23 @@
     margin-right: 15px;
 }
 
+.character-card.active .avatar-image {
+    border-color: white;
+}
+
 .character-card.active .avatar-icon {
     background: white;
     color: #667eea;
 }
 
 .character-info h3 {
-    color: #333;
+    color: white;
     margin: 0 0 5px 0;
     font-size: 1.2rem;
 }
 
 .character-info p {
-    color: #666;
+    color: rgba(255, 255, 255, 0.8);
     margin: 0 0 10px 0;
     font-size: 0.9rem;
 }
@@ -149,8 +174,8 @@
 }
 
 .trait-tag {
-    background: #e3f2fd;
-    color: #1976d2;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
     padding: 2px 8px;
     border-radius: 10px;
     font-size: 0.75rem;
@@ -364,27 +389,27 @@
         grid-template-columns: 1fr;
         height: auto;
     }
-    
+
     .character-list {
         max-height: 300px;
         margin-bottom: 20px;
     }
-    
+
     .character-grid {
         flex-direction: row;
         overflow-x: auto;
         padding-bottom: 10px;
     }
-    
+
     .character-card {
         min-width: 200px;
         flex-shrink: 0;
     }
-    
+
     .chats-header h1 {
         font-size: 2rem;
     }
-    
+
     .message-content {
         max-width: 85%;
     }
@@ -394,17 +419,17 @@
     .chats-container {
         padding: 10px;
     }
-    
+
     .chats-header h1 {
         font-size: 1.8rem;
     }
-    
+
     .character-list,
     .chat-area {
         border-radius: 15px;
         padding: 15px;
     }
-    
+
     .message-input {
         padding: 15px;
     }

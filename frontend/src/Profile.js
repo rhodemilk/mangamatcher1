@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Profile.css';
+import { getCharacterForManga } from './characterDatabase';
 
 function Profile() {
+    const navigate = useNavigate();
     const [likedManga, setLikedManga] = useState([]);
     const [userStats, setUserStats] = useState({
         totalQuizzes: 0,
@@ -36,28 +39,48 @@ function Profile() {
         });
     };
 
+    const handleChatWithCharacter = (manga) => {
+        const character = getCharacterForManga(manga.manga.title);
+        if (character) {
+            navigate('/chats');
+        }
+    };
+
     return (
         <div className="profile-container">
-            <div className="profile-header">
-                <h1>🌸 Your MangaMatcher Profile</h1>
-                <p>Track your manga journey and preferences</p>
-            </div>
+            <div className="profile-main-content">
+                <div className="profile-header">
+                    <h1>🌸 Your MangaMatcher Profile</h1>
+                    <p>Track your manga journey and preferences</p>
+                </div>
 
-            <div className="profile-content">
-                <div className="stats-section">
-                    <h2>📊 Your Stats</h2>
-                    <div className="stats-grid">
-                        <div className="stat-card">
-                            <div className="stat-number">{userStats.totalQuizzes}</div>
-                            <div className="stat-label">Quizzes Taken</div>
+                <div className="profile-content">
+                <div className="journey-section">
+                    <h2>🌟 Your Manga Journey</h2>
+                    <div className="journey-grid">
+                        <div className="journey-card">
+                            <div className="journey-icon">📚</div>
+                            <div className="journey-content">
+                                <div className="journey-number">{likedManga.length}</div>
+                                <div className="journey-label">Manga Discovered</div>
+                                <div className="journey-description">Stories that captured your heart</div>
+                            </div>
                         </div>
-                        <div className="stat-card">
-                            <div className="stat-number">{userStats.totalLiked}</div>
-                            <div className="stat-label">Manga Liked</div>
+                        <div className="journey-card">
+                            <div className="journey-icon">💬</div>
+                            <div className="journey-content">
+                                <div className="journey-number">{likedManga.length}</div>
+                                <div className="journey-label">Characters to Chat With</div>
+                                <div className="journey-description">Your favorite protagonists await</div>
+                            </div>
                         </div>
-                        <div className="stat-card">
-                            <div className="stat-number">{likedManga.length}</div>
-                            <div className="stat-label">Current Favorites</div>
+                        <div className="journey-card">
+                            <div className="journey-icon">🎯</div>
+                            <div className="journey-content">
+                                <div className="journey-number">{userStats.favoriteGenres.length}</div>
+                                <div className="journey-label">Favorite Genres</div>
+                                <div className="journey-description">Your preferred story types</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -118,16 +141,24 @@ function Profile() {
                                             <span className="profile-genre">{manga.manga.genre}</span>
                                             <span className="profile-demographic">{manga.manga.demographic}</span>
                                         </div>
-                                        {manga.manga.amazon_link && (
-                                            <a
-                                                href={manga.manga.amazon_link}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="profile-amazon-link"
+                                        <div className="profile-manga-actions">
+                                            {manga.manga.amazon_link && (
+                                                <a
+                                                    href={manga.manga.amazon_link}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="profile-amazon-link"
+                                                >
+                                                    View on Amazon
+                                                </a>
+                                            )}
+                                            <button
+                                                onClick={() => handleChatWithCharacter(manga)}
+                                                className="profile-chat-character-btn"
                                             >
-                                                View on Amazon
-                                            </a>
-                                        )}
+                                                💬 Chat with Character
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             ))}
@@ -147,6 +178,7 @@ function Profile() {
                     <button onClick={clearHistory} className="btn btn-secondary">
                         Clear History
                     </button>
+                </div>
                 </div>
             </div>
         </div>

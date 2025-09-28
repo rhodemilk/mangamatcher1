@@ -1,15 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Recommendations.css';
+import { getCharacterForManga } from './characterDatabase';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
 function Recommendations({ recommendations, onBackToQuiz }) {
+    const navigate = useNavigate();
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentManga, setCurrentManga] = useState(null);
     const [isAnimating, setIsAnimating] = useState(false);
     const [likedManga, setLikedManga] = useState([]);
     const [rejectedManga, setRejectedManga] = useState([]);
     const [isFlipped, setIsFlipped] = useState(false);
+    
+    // Swipe functionality state
+    const [isDragging, setIsDragging] = useState(false);
+    const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+    const [dragCurrent, setDragCurrent] = useState({ x: 0, y: 0 });
+    const [swipeDirection, setSwipeDirection] = useState(null);
+    const cardRef = useRef(null);
 
     useEffect(() => {
         if (recommendations && recommendations.length > 0) {
@@ -18,8 +28,92 @@ function Recommendations({ recommendations, onBackToQuiz }) {
         }
     }, [recommendations, currentIndex]);
 
-    const handleCardClick = () => {
-        setIsFlipped(!isFlipped);
+    const handleCardClick = (e) => {
+        // Only flip if not dragging
+        if (!isDragging) {
+            setIsFlipped(!isFlipped);
+        }
+    };
+
+    // Touch/Mouse event handlers for swiping
+    const handleStart = (clientX, clientY) => {
+        setIsDragging(true);
+        setDragStart({ x: clientX, y: clientY });
+        setDragCurrent({ x: clientX, y: clientY });
+        setSwipeDirection(null);
+    };
+
+    const handleMove = (clientX, clientY) => {
+        if (!isDragging) return;
+
+        setDragCurrent({ x: clientX, y: clientY });
+
+        const deltaX = clientX - dragStart.x;
+        const deltaY = clientY - dragStart.y;
+
+        // Determine swipe direction
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            if (deltaX > 50) {
+                setSwipeDirection('right');
+            } else if (deltaX < -50) {
+                setSwipeDirection('left');
+            } else {
+                setSwipeDirection(null);
+            }
+        }
+    };
+
+    const handleEnd = () => {
+        if (!isDragging) return;
+
+        setIsDragging(false);
+
+        const deltaX = dragCurrent.x - dragStart.x;
+        const deltaY = dragCurrent.y - dragStart.y;
+        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+        // Check if it's a valid swipe (minimum distance and horizontal movement)
+        if (distance > 100 && Math.abs(deltaX) > Math.abs(deltaY)) {
+            if (deltaX > 0) {
+                handleSwipe('like');
+            } else {
+                handleSwipe('reject');
+            }
+        }
+
+        // Reset drag state
+        setDragStart({ x: 0, y: 0 });
+        setDragCurrent({ x: 0, y: 0 });
+        setSwipeDirection(null);
+    };
+
+    // Mouse events
+    const handleMouseDown = (e) => {
+        e.preventDefault();
+        handleStart(e.clientX, e.clientY);
+    };
+
+    const handleMouseMove = (e) => {
+        handleMove(e.clientX, e.clientY);
+    };
+
+    const handleMouseUp = () => {
+        handleEnd();
+    };
+
+    // Touch events
+    const handleTouchStart = (e) => {
+        const touch = e.touches[0];
+        handleStart(touch.clientX, touch.clientY);
+    };
+
+    const handleTouchMove = (e) => {
+        const touch = e.touches[0];
+        handleMove(touch.clientX, touch.clientY);
+    };
+
+    const handleTouchEnd = () => {
+        handleEnd();
     };
 
     const handleSwipe = (direction) => {
@@ -46,6 +140,13 @@ function Recommendations({ recommendations, onBackToQuiz }) {
     const handleLike = () => handleSwipe('like');
     const handleReject = () => handleSwipe('reject');
 
+    const handleChatWithCharacter = (manga) => {
+        const character = getCharacterForManga(manga.manga.title);
+        if (character) {
+            navigate('/chats');
+        }
+    };
+
     const handleKeyPress = (e) => {
         if (e.key === 'ArrowLeft') {
             handleReject();
@@ -58,6 +159,23 @@ function Recommendations({ recommendations, onBackToQuiz }) {
         window.addEventListener('keydown', handleKeyPress);
         return () => window.removeEventListener('keydown', handleKeyPress);
     }, []);
+
+    // Add global mouse event listeners for dragging
+    useEffect(() => {
+        if (isDragging) {
+            document.addEventListener('mousemove', handleMouseMove);
+            document.addEventListener('mouseup', handleMouseUp);
+            document.addEventListener('touchmove', handleTouchMove, { passive: false });
+            document.addEventListener('touchend', handleTouchEnd);
+        }
+
+        return () => {
+            document.removeEventListener('mousemove', handleMouseMove);
+            document.removeEventListener('mouseup', handleMouseUp);
+            document.removeEventListener('touchmove', handleTouchMove);
+            document.removeEventListener('touchend', handleTouchEnd);
+        };
+    }, [isDragging, dragStart, dragCurrent]);
 
     if (!recommendations || recommendations.length === 0) {
         return (
@@ -97,16 +215,24 @@ function Recommendations({ recommendations, onBackToQuiz }) {
                                     <div key={index} className="liked-item">
                                         <h4>{manga.manga.title}</h4>
                                         <p>by {manga.manga.author}</p>
-                                        {manga.manga.amazon_link && (
-                                            <a
-                                                href={manga.manga.amazon_link}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="amazon-link"
+                                        <div className="liked-item-actions">
+                                            {manga.manga.amazon_link && (
+                                                <a
+                                                    href={manga.manga.amazon_link}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="amazon-link"
+                                                >
+                                                    View on Amazon
+                                                </a>
+                                            )}
+                                            <button
+                                                onClick={() => handleChatWithCharacter(manga)}
+                                                className="chat-character-btn"
                                             >
-                                                View on Amazon
-                                            </a>
-                                        )}
+                                                💬 Chat with Character
+                                            </button>
+                                        </div>
                                     </div>
                                 ))}
                             </div>
@@ -132,9 +258,17 @@ function Recommendations({ recommendations, onBackToQuiz }) {
 
             <div className="card-container">
                 <div
-                    className={`manga-card ${isAnimating ? 'swiping' : ''} ${isFlipped ? 'flipped' : ''}`}
+                    ref={cardRef}
+                    className={`manga-card ${isAnimating ? 'swiping' : ''} ${isFlipped ? 'flipped' : ''} ${isDragging ? 'dragging' : ''}`}
                     key={currentIndex}
                     onClick={handleCardClick}
+                    onMouseDown={handleMouseDown}
+                    onTouchStart={handleTouchStart}
+                    style={{
+                        transform: isDragging ?
+                            `translateX(${dragCurrent.x - dragStart.x}px) rotate(${(dragCurrent.x - dragStart.x) * 0.1}deg)` :
+                            undefined
+                    }}
                 >
                     <div className="manga-card-inner">
                         <div className="manga-card-front">
@@ -223,6 +357,22 @@ function Recommendations({ recommendations, onBackToQuiz }) {
                             </p>
                         </div>
                     </div>
+
+                    {/* Swipe direction overlays */}
+                    {isDragging && (
+                        <>
+                            {swipeDirection === 'right' && (
+                                <div className="swipe-overlay like-overlay">
+                                    <div className="swipe-text">LIKE</div>
+                                </div>
+                            )}
+                            {swipeDirection === 'left' && (
+                                <div className="swipe-overlay reject-overlay">
+                                    <div className="swipe-text">REJECT</div>
+                                </div>
+                            )}
+                        </>
+                    )}
                 </div>
             </div>
 
@@ -244,7 +394,7 @@ function Recommendations({ recommendations, onBackToQuiz }) {
             </div>
 
             <div className="instructions">
-                <p>Use the buttons to swipe</p>
+                <p>Swipe left to reject, right to like, or use the buttons below</p>
             </div>
         </div>
     );

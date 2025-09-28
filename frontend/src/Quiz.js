@@ -4,6 +4,7 @@ import './Quiz.css';
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
 function Quiz({ onQuizComplete, onError }) {
+    const [hasStarted, setHasStarted] = useState(false);
     const [currentStep, setCurrentStep] = useState(1);
     const [quizOptions, setQuizOptions] = useState({
         genres: [],
@@ -35,6 +36,10 @@ function Quiz({ onQuizComplete, onError }) {
         };
         fetchQuizOptions();
     }, []);
+
+    const handleStartQuiz = () => {
+        setHasStarted(true);
+    };
 
     const handleGenreToggle = (genre) => {
         setAnswers(prev => ({
@@ -229,6 +234,50 @@ function Quiz({ onQuizComplete, onError }) {
                 return null;
         }
     };
+
+    // Welcome page component
+    if (!hasStarted) {
+        return (
+            <div className="quiz-container">
+                <div className="welcome-content">
+                    <div className="welcome-header">
+                        <h1>🌸 Welcome to MangaMatcher</h1>
+                        <p className="welcome-subtitle">Discover Your Perfect Manga Match</p>
+                    </div>
+                    
+                    <div className="welcome-description">
+                        <div className="welcome-feature">
+                            <div className="feature-icon">🎯</div>
+                            <h3>Personalized Recommendations</h3>
+                            <p>Answer a few quick questions about your preferences and get tailored manga suggestions just for you.</p>
+                        </div>
+                        
+                        <div className="welcome-feature">
+                            <div className="feature-icon">💬</div>
+                            <h3>Chat with Characters</h3>
+                            <p>After finding manga you love, chat with the main characters using AI-powered conversations.</p>
+                        </div>
+                        
+                        <div className="welcome-feature">
+                            <div className="feature-icon">📚</div>
+                            <h3>Discover New Stories</h3>
+                            <p>Explore a curated collection of manga across different genres, demographics, and eras.</p>
+                        </div>
+                    </div>
+                    
+                    <div className="welcome-actions">
+                        <button 
+                            className="start-quiz-btn"
+                            onClick={handleStartQuiz}
+                        >
+                            Start Your Manga Journey
+                        </button>
+                        <p className="welcome-note">Takes less than 2 minutes • Completely free</p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="quiz-container">
