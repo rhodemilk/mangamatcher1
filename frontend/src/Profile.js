@@ -48,12 +48,13 @@ function Profile() {
 
     return (
         <div className="profile-container">
-            <div className="profile-header">
-                <h1>🌸 Your MangaMatcher Profile</h1>
-                <p>Track your manga journey and preferences</p>
-            </div>
+            <div className="profile-main-content">
+                <div className="profile-header">
+                    <h1>🌸 Your MangaMatcher Profile</h1>
+                    <p>Track your manga journey and preferences</p>
+                </div>
 
-            <div className="profile-content">
+                <div className="profile-content">
                 <div className="journey-section">
                     <h2>🌟 Your Manga Journey</h2>
                     <div className="journey-grid">
@@ -177,6 +178,7 @@ function Profile() {
                     <button onClick={clearHistory} className="btn btn-secondary">
                         Clear History
                     </button>
+                </div>
                 </div>
             </div>
         </div>

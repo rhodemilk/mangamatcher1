@@ -5,6 +5,16 @@
     font-family: 'Arial', sans-serif;
 }
 
+.profile-main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: rgb(37, 58, 86);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
 .profile-header {
     text-align: center;
     color: white;
@@ -29,15 +39,11 @@
 }
 
 .journey-section {
-    background: white;
-    border-radius: 20px;
-    padding: 30px;
     margin-bottom: 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .journey-section h2 {
-    color: #333;
+    color: white;
     margin-bottom: 20px;
     text-align: center;
 }
@@ -128,15 +134,11 @@
 }
 
 .preferences-section {
-    background: white;
-    border-radius: 20px;
-    padding: 30px;
     margin-bottom: 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .preferences-section h2 {
-    color: #333;
+    color: white;
     margin-bottom: 25px;
     text-align: center;
 }
@@ -178,15 +180,11 @@
 }
 
 .liked-manga-section {
-    background: white;
-    border-radius: 20px;
-    padding: 30px;
     margin-bottom: 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .liked-manga-section h2 {
-    color: #333;
+    color: white;
     margin-bottom: 25px;
     text-align: center;
 }
