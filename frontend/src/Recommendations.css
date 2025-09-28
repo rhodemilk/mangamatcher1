@@ -17,7 +17,7 @@
 .recommendations-header h1 {
     font-size: 2.5rem;
     margin: 0;
-    
+
 }
 
 .progress-info {
@@ -348,6 +348,33 @@
     margin: 0 0 10px 0;
     color: #666;
     font-style: italic;
+}
+
+.liked-item-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.chat-character-btn {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.chat-character-btn:hover {
+    background: #5a6fd8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
 .amazon-link {

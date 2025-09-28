@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Profile.css';
+import { getCharacterForManga } from './characterDatabase';
 
 function Profile() {
+    const navigate = useNavigate();
     const [likedManga, setLikedManga] = useState([]);
     const [userStats, setUserStats] = useState({
         totalQuizzes: 0,
@@ -34,6 +37,13 @@ function Profile() {
             favoriteGenres: [],
             favoriteDemographics: []
         });
+    };
+
+    const handleChatWithCharacter = (manga) => {
+        const character = getCharacterForManga(manga.manga.title);
+        if (character) {
+            navigate('/chats');
+        }
     };
 
     return (
@@ -118,16 +128,24 @@ function Profile() {
                                             <span className="profile-genre">{manga.manga.genre}</span>
                                             <span className="profile-demographic">{manga.manga.demographic}</span>
                                         </div>
-                                        {manga.manga.amazon_link && (
-                                            <a
-                                                href={manga.manga.amazon_link}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="profile-amazon-link"
+                                        <div className="profile-manga-actions">
+                                            {manga.manga.amazon_link && (
+                                                <a
+                                                    href={manga.manga.amazon_link}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="profile-amazon-link"
+                                                >
+                                                    View on Amazon
+                                                </a>
+                                            )}
+                                            <button
+                                                onClick={() => handleChatWithCharacter(manga)}
+                                                className="profile-chat-character-btn"
                                             >
-                                                View on Amazon
-                                            </a>
-                                        )}
+                                                💬 Chat with Character
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             ))}

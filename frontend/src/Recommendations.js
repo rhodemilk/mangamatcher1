@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Recommendations.css';
+import { getCharacterForManga } from './characterDatabase';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
 function Recommendations({ recommendations, onBackToQuiz }) {
+    const navigate = useNavigate();
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentManga, setCurrentManga] = useState(null);
     const [isAnimating, setIsAnimating] = useState(false);
@@ -42,12 +45,12 @@ function Recommendations({ recommendations, onBackToQuiz }) {
 
     const handleMove = (clientX, clientY) => {
         if (!isDragging) return;
-        
+
         setDragCurrent({ x: clientX, y: clientY });
-        
+
         const deltaX = clientX - dragStart.x;
         const deltaY = clientY - dragStart.y;
-        
+
         // Determine swipe direction
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
             if (deltaX > 50) {
@@ -62,13 +65,13 @@ function Recommendations({ recommendations, onBackToQuiz }) {
 
     const handleEnd = () => {
         if (!isDragging) return;
-        
+
         setIsDragging(false);
-        
+
         const deltaX = dragCurrent.x - dragStart.x;
         const deltaY = dragCurrent.y - dragStart.y;
         const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-        
+
         // Check if it's a valid swipe (minimum distance and horizontal movement)
         if (distance > 100 && Math.abs(deltaX) > Math.abs(deltaY)) {
             if (deltaX > 0) {
@@ -77,7 +80,7 @@ function Recommendations({ recommendations, onBackToQuiz }) {
                 handleSwipe('reject');
             }
         }
-        
+
         // Reset drag state
         setDragStart({ x: 0, y: 0 });
         setDragCurrent({ x: 0, y: 0 });
@@ -136,6 +139,13 @@ function Recommendations({ recommendations, onBackToQuiz }) {
 
     const handleLike = () => handleSwipe('like');
     const handleReject = () => handleSwipe('reject');
+
+    const handleChatWithCharacter = (manga) => {
+        const character = getCharacterForManga(manga.manga.title);
+        if (character) {
+            navigate('/chats');
+        }
+    };
 
     const handleKeyPress = (e) => {
         if (e.key === 'ArrowLeft') {
@@ -205,16 +215,24 @@ function Recommendations({ recommendations, onBackToQuiz }) {
                                     <div key={index} className="liked-item">
                                         <h4>{manga.manga.title}</h4>
                                         <p>by {manga.manga.author}</p>
-                                        {manga.manga.amazon_link && (
-                                            <a
-                                                href={manga.manga.amazon_link}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="amazon-link"
+                                        <div className="liked-item-actions">
+                                            {manga.manga.amazon_link && (
+                                                <a
+                                                    href={manga.manga.amazon_link}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="amazon-link"
+                                                >
+                                                    View on Amazon
+                                                </a>
+                                            )}
+                                            <button
+                                                onClick={() => handleChatWithCharacter(manga)}
+                                                className="chat-character-btn"
                                             >
-                                                View on Amazon
-                                            </a>
-                                        )}
+                                                💬 Chat with Character
+                                            </button>
+                                        </div>
                                     </div>
                                 ))}
                             </div>
@@ -247,8 +265,8 @@ function Recommendations({ recommendations, onBackToQuiz }) {
                     onMouseDown={handleMouseDown}
                     onTouchStart={handleTouchStart}
                     style={{
-                        transform: isDragging ? 
-                            `translateX(${dragCurrent.x - dragStart.x}px) rotate(${(dragCurrent.x - dragStart.x) * 0.1}deg)` : 
+                        transform: isDragging ?
+                            `translateX(${dragCurrent.x - dragStart.x}px) rotate(${(dragCurrent.x - dragStart.x) * 0.1}deg)` :
                             undefined
                     }}
                 >
@@ -339,7 +357,7 @@ function Recommendations({ recommendations, onBackToQuiz }) {
                             </p>
                         </div>
                     </div>
-                    
+
                     {/* Swipe direction overlays */}
                     {isDragging && (
                         <>
