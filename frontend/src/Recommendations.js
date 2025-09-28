@@ -143,7 +143,12 @@ function Recommendations({ recommendations, onBackToQuiz }) {
     const handleChatWithCharacter = (manga) => {
         const character = getCharacterForManga(manga.manga.title);
         if (character) {
-            navigate('/chats');
+            navigate('/chats', { 
+                state: { 
+                    selectedCharacter: { ...character, manga: manga.manga },
+                    manga: manga.manga
+                } 
+            });
         }
     };
 

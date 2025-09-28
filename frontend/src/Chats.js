@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './Chats.css';
 import { getCharacterForManga } from './characterDatabase';
 
 function Chats() {
+    const location = useLocation();
     const [likedManga, setLikedManga] = useState([]);
     const [selectedCharacter, setSelectedCharacter] = useState(null);
     const [chatMessages, setChatMessages] = useState({});
@@ -23,6 +24,30 @@ function Chats() {
             setChatMessages(JSON.parse(savedChats));
         }
     }, []);
+
+    // Handle character selection from navigation state
+    useEffect(() => {
+        if (location.state?.selectedCharacter && location.state?.manga) {
+            const { selectedCharacter: passedCharacter, manga } = location.state;
+            
+            // Add the manga to liked manga if it's not already there
+            const savedLikedManga = localStorage.getItem('likedManga');
+            let currentLikedManga = savedLikedManga ? JSON.parse(savedLikedManga) : [];
+            
+            const mangaExists = currentLikedManga.some(liked => liked.manga.title === manga.title);
+            if (!mangaExists) {
+                currentLikedManga.push({ manga });
+                setLikedManga(currentLikedManga);
+                localStorage.setItem('likedManga', JSON.stringify(currentLikedManga));
+            }
+
+            // Open the chat for this character
+            openChat({ manga });
+            
+            // Clear the location state to prevent re-triggering
+            window.history.replaceState({}, document.title);
+        }
+    }, [location.state]);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
