@@ -377,27 +377,27 @@
         grid-template-columns: 1fr;
         height: auto;
     }
-    
+
     .character-list {
         max-height: 300px;
         margin-bottom: 20px;
     }
-    
+
     .character-grid {
         flex-direction: row;
         overflow-x: auto;
         padding-bottom: 10px;
     }
-    
+
     .character-card {
         min-width: 200px;
         flex-shrink: 0;
     }
-    
+
     .chats-header h1 {
         font-size: 2rem;
     }
-    
+
     .message-content {
         max-width: 85%;
     }
@@ -407,17 +407,17 @@
     .chats-container {
         padding: 10px;
     }
-    
+
     .chats-header h1 {
         font-size: 1.8rem;
     }
-    
+
     .character-list,
     .chat-area {
         border-radius: 15px;
         padding: 15px;
     }
-    
+
     .message-input {
         padding: 15px;
     }

@@ -196,8 +196,8 @@ function Chats() {
                                     onClick={() => openChat(manga)}
                                 >
                                     <div className="character-avatar">
-                                        <img 
-                                            src={manga.manga.cover_image_url} 
+                                        <img
+                                            src={manga.manga.cover_image_url}
                                             alt={`${character.name} from ${manga.manga.title}`}
                                             className="avatar-image"
                                             onError={(e) => {
@@ -205,7 +205,7 @@ function Chats() {
                                                 e.target.nextSibling.style.display = 'flex';
                                             }}
                                         />
-                                        <span className="avatar-icon" style={{display: 'none'}}>👤</span>
+                                        <span className="avatar-icon" style={{ display: 'none' }}>👤</span>
                                     </div>
                                     <div className="character-info">
                                         <h3>{character.name}</h3>
