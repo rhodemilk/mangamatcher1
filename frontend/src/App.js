@@ -45,7 +45,7 @@ function App() {
               <Link to="/" className="nav-link">Home</Link>
               <Link to="/quiz" className="nav-link">Quiz</Link>
               <Link to="/chats" className="nav-link">Chats</Link>
-              <Link to="/profile" className="nav-link profile-icon" title="Profile">👤</Link>
+              <Link to="/profile" className="nav-link">Profile</Link>
             </div>
           </div>
         </nav>

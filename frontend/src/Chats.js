@@ -29,11 +29,11 @@ function Chats() {
     useEffect(() => {
         if (location.state?.selectedCharacter && location.state?.manga) {
             const { selectedCharacter: passedCharacter, manga } = location.state;
-            
+
             // Add the manga to liked manga if it's not already there
             const savedLikedManga = localStorage.getItem('likedManga');
             let currentLikedManga = savedLikedManga ? JSON.parse(savedLikedManga) : [];
-            
+
             const mangaExists = currentLikedManga.some(liked => liked.manga.title === manga.title);
             if (!mangaExists) {
                 currentLikedManga.push({ manga });
@@ -43,7 +43,7 @@ function Chats() {
 
             // Open the chat for this character
             openChat({ manga });
-            
+
             // Clear the location state to prevent re-triggering
             window.history.replaceState({}, document.title);
         }
