@@ -33,19 +33,68 @@
     height: 700px;
     margin: 20px 0;
     perspective: 1000px;
+    border-radius: 20px;
+    overflow: hidden;
 }
 
 .manga-card {
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    background: white;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     overflow: hidden;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    cursor: grab;
+    transition: none;
+    cursor: pointer;
     user-select: none;
+    transform-style: preserve-3d;
+}
+
+.manga-card.flipped {
+    transform: rotateY(180deg);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.manga-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.manga-card.flipped .manga-card-inner {
+    transform: rotateY(180deg);
+}
+
+.manga-card-front,
+.manga-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+
+.manga-card-back {
+    transform: rotateY(180deg);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .manga-card:active {
