@@ -91,7 +91,7 @@ function Profile() {
 
                     {likedManga.length > 0 && (
                         <div className="liked-manga-section">
-                            <h2>❤️ Your Picks</h2>
+                            <h2>Your Picks</h2>
                             <div className="manga-grid">
                                 {likedManga.map((manga, index) => (
                                     <div key={index} className="profile-manga-card">
