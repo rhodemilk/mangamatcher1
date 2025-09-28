@@ -182,95 +182,95 @@ function Chats() {
                 </div>
 
                 <div className="chats-main-content">
-                <div className="character-list">
-                    <h2>Your Characters</h2>
-                    <div className="character-grid">
-                        {likedManga.map((manga, index) => {
-                            const character = getCharacterForManga(manga.manga.title);
-                            const hasUnreadMessages = chatMessages[manga.manga.title]?.some(
-                                msg => msg.type === 'character' &&
-                                    new Date(msg.timestamp) > new Date(localStorage.getItem(`lastRead_${manga.manga.title}`) || 0)
-                            );
+                    <div className="character-list">
+                        <h2>Your Characters</h2>
+                        <div className="character-grid">
+                            {likedManga.map((manga, index) => {
+                                const character = getCharacterForManga(manga.manga.title);
+                                const hasUnreadMessages = chatMessages[manga.manga.title]?.some(
+                                    msg => msg.type === 'character' &&
+                                        new Date(msg.timestamp) > new Date(localStorage.getItem(`lastRead_${manga.manga.title}`) || 0)
+                                );
 
-                            return (
-                                <div
-                                    key={index}
-                                    className={`character-card ${selectedCharacter?.manga.title === manga.manga.title ? 'active' : ''}`}
-                                    onClick={() => openChat(manga)}
-                                >
-                                    <div className="character-avatar">
-                                        <img
-                                            src={manga.manga.cover_image_url}
-                                            alt={`${character.name} from ${manga.manga.title}`}
-                                            className="avatar-image"
-                                            onError={(e) => {
-                                                e.target.style.display = 'none';
-                                                e.target.nextSibling.style.display = 'flex';
-                                            }}
-                                        />
-                                        <span className="avatar-icon" style={{ display: 'none' }}>👤</span>
-                                    </div>
-                                    <div className="character-info">
-                                        <h3>{character.name}</h3>
-                                        <p>from {manga.manga.title}</p>
-                                        <div className="character-traits">
-                                            {character.personality.traits.slice(0, 3).map((trait, i) => (
-                                                <span key={i} className="trait-tag">{trait}</span>
-                                            ))}
+                                return (
+                                    <div
+                                        key={index}
+                                        className={`character-card ${selectedCharacter?.manga.title === manga.manga.title ? 'active' : ''}`}
+                                        onClick={() => openChat(manga)}
+                                    >
+                                        <div className="character-avatar">
+                                            <img
+                                                src={manga.manga.cover_image_url}
+                                                alt={`${character.name} from ${manga.manga.title}`}
+                                                className="avatar-image"
+                                                onError={(e) => {
+                                                    e.target.style.display = 'none';
+                                                    e.target.nextSibling.style.display = 'flex';
+                                                }}
+                                            />
+                                            <span className="avatar-icon" style={{ display: 'none' }}>👤</span>
                                         </div>
-                                    </div>
-                                    {hasUnreadMessages && <div className="unread-indicator"></div>}
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
-
-                <div className="chat-area">
-                    {selectedCharacter ? (
-                        <>
-                            <div className="chat-header">
-                                <div className="character-details">
-                                    <h3>{selectedCharacter.name}</h3>
-                                    <p>from {selectedCharacter.manga.title}</p>
-                                </div>
-                                <button onClick={clearChatHistory} className="clear-btn">
-                                    Clear All Chats
-                                </button>
-                            </div>
-
-                            <div className="messages-container">
-                                {chatMessages[selectedCharacter.manga.title]?.map((message) => (
-                                    <div key={message.id} className={`message ${message.type}`}>
-                                        <div className="message-content">
-                                            <p>{message.message}</p>
-                                            <span className="message-time">{formatTime(message.timestamp)}</span>
+                                        <div className="character-info">
+                                            <h3>{character.name}</h3>
+                                            <p>from {manga.manga.title}</p>
+                                            <div className="character-traits">
+                                                {character.personality.traits.slice(0, 3).map((trait, i) => (
+                                                    <span key={i} className="trait-tag">{trait}</span>
+                                                ))}
+                                            </div>
                                         </div>
+                                        {hasUnreadMessages && <div className="unread-indicator"></div>}
                                     </div>
-                                ))}
-                                <div ref={messagesEndRef} />
-                            </div>
-
-                            <div className="message-input">
-                                <input
-                                    type="text"
-                                    value={newMessage}
-                                    onChange={(e) => setNewMessage(e.target.value)}
-                                    onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-                                    placeholder={`Message ${selectedCharacter.name}...`}
-                                />
-                                <button onClick={sendMessage} disabled={!newMessage.trim()}>
-                                    Send
-                                </button>
-                            </div>
-                        </>
-                    ) : (
-                        <div className="no-chat-selected">
-                            <h3>Select a character to start chatting!</h3>
-                            <p>Choose from your liked manga characters above.</p>
+                                );
+                            })}
                         </div>
-                    )}
-                </div>
+                    </div>
+
+                    <div className="chat-area">
+                        {selectedCharacter ? (
+                            <>
+                                <div className="chat-header">
+                                    <div className="character-details">
+                                        <h3>{selectedCharacter.name}</h3>
+                                        <p>from {selectedCharacter.manga.title}</p>
+                                    </div>
+                                    <button onClick={clearChatHistory} className="clear-btn">
+                                        Clear All Chats
+                                    </button>
+                                </div>
+
+                                <div className="messages-container">
+                                    {chatMessages[selectedCharacter.manga.title]?.map((message) => (
+                                        <div key={message.id} className={`message ${message.type}`}>
+                                            <div className="message-content">
+                                                <p>{message.message}</p>
+                                                <span className="message-time">{formatTime(message.timestamp)}</span>
+                                            </div>
+                                        </div>
+                                    ))}
+                                    <div ref={messagesEndRef} />
+                                </div>
+
+                                <div className="message-input">
+                                    <input
+                                        type="text"
+                                        value={newMessage}
+                                        onChange={(e) => setNewMessage(e.target.value)}
+                                        onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+                                        placeholder={`Message ${selectedCharacter.name}...`}
+                                    />
+                                    <button onClick={sendMessage} disabled={!newMessage.trim()}>
+                                        Send
+                                    </button>
+                                </div>
+                            </>
+                        ) : (
+                            <div className="no-chat-selected">
+                                <h3>Select a character to start chatting!</h3>
+                                <p>Choose from your liked manga characters above.</p>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

@@ -244,29 +244,29 @@ function Quiz({ onQuizComplete, onError }) {
                         <h1>🌸 Welcome to MangaMatcher</h1>
                         <p className="welcome-subtitle">Discover Your Perfect Manga Match</p>
                     </div>
-                    
+
                     <div className="welcome-description">
                         <div className="welcome-feature">
                             <div className="feature-icon">🎯</div>
                             <h3>Personalized Recommendations</h3>
                             <p>Answer a few quick questions about your preferences and get tailored manga suggestions just for you.</p>
                         </div>
-                        
+
                         <div className="welcome-feature">
                             <div className="feature-icon">💬</div>
                             <h3>Chat with Characters</h3>
                             <p>After finding manga you love, chat with the main characters using AI-powered conversations.</p>
                         </div>
-                        
+
                         <div className="welcome-feature">
                             <div className="feature-icon">📚</div>
                             <h3>Discover New Stories</h3>
                             <p>Explore a curated collection of manga across different genres, demographics, and eras.</p>
                         </div>
                     </div>
-                    
+
                     <div className="welcome-actions">
-                        <button 
+                        <button
                             className="start-quiz-btn"
                             onClick={handleStartQuiz}
                         >

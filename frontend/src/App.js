@@ -52,15 +52,15 @@ function App() {
         {info && <div className="alert info">{info}</div>}
 
         <Routes>
-          <Route 
-            path="/" 
+          <Route
+            path="/"
             element={
               recommendations.length > 0 ? (
                 <Recommendations recommendations={recommendations} onBackToQuiz={handleBackToQuiz} />
               ) : (
                 <Quiz onQuizComplete={handleQuizComplete} onError={handleError} />
               )
-            } 
+            }
           />
           <Route path="/chats" element={<Chats />} />
           <Route path="/profile" element={<Profile />} />

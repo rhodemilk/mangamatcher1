@@ -13,7 +13,7 @@ function Recommendations({ recommendations, onBackToQuiz }) {
     const [likedManga, setLikedManga] = useState([]);
     const [rejectedManga, setRejectedManga] = useState([]);
     const [isFlipped, setIsFlipped] = useState(false);
-    
+
     // Swipe functionality state
     const [isDragging, setIsDragging] = useState(false);
     const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
