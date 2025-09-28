@@ -55,35 +55,6 @@ function Profile() {
                 </div>
 
                 <div className="profile-content">
-                    <div className="journey-section">
-                        <h2>🌟 Your Manga Journey</h2>
-                        <div className="journey-grid">
-                            <div className="journey-card">
-                                <div className="journey-icon">📚</div>
-                                <div className="journey-content">
-                                    <div className="journey-number">{likedManga.length}</div>
-                                    <div className="journey-label">Manga Discovered</div>
-                                    <div className="journey-description">Stories that captured your heart</div>
-                                </div>
-                            </div>
-                            <div className="journey-card">
-                                <div className="journey-icon">💬</div>
-                                <div className="journey-content">
-                                    <div className="journey-number">{likedManga.length}</div>
-                                    <div className="journey-label">Characters to Chat With</div>
-                                    <div className="journey-description">Your favorite protagonists await</div>
-                                </div>
-                            </div>
-                            <div className="journey-card">
-                                <div className="journey-icon">🎯</div>
-                                <div className="journey-content">
-                                    <div className="journey-number">{userStats.favoriteGenres.length}</div>
-                                    <div className="journey-label">Favorite Genres</div>
-                                    <div className="journey-description">Your preferred story types</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     {userStats.favoriteGenres.length > 0 && (
                         <div className="preferences-section">
