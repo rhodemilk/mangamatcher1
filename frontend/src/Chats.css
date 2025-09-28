@@ -80,19 +80,20 @@
 }
 
 .character-card {
-    background: #f8f9fa;
+    background: rgb(37, 58, 86);
     border-radius: 15px;
     padding: 20px;
     cursor: pointer;
     transition: all 0.2s ease;
     border: 2px solid transparent;
     position: relative;
+    color: white;
 }
 
 .character-card:hover {
-    background: #e9ecef;
+    background: rgb(47, 68, 96);
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .character-card.active {
@@ -144,13 +145,13 @@
 }
 
 .character-info h3 {
-    color: #333;
+    color: white;
     margin: 0 0 5px 0;
     font-size: 1.2rem;
 }
 
 .character-info p {
-    color: #666;
+    color: rgba(255, 255, 255, 0.8);
     margin: 0 0 10px 0;
     font-size: 0.9rem;
 }
@@ -162,8 +163,8 @@
 }
 
 .trait-tag {
-    background: #e3f2fd;
-    color: #1976d2;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
     padding: 2px 8px;
     border-radius: 10px;
     font-size: 0.75rem;
