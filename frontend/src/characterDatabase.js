@@ -768,7 +768,7 @@ export const getCharacterForManga = (mangaTitle) => {
     if (characterDatabase[mangaTitle]) {
         return characterDatabase[mangaTitle];
     }
-
+    
     // Try partial matches for common variations
     const title = mangaTitle.toLowerCase();
     for (const [key, character] of Object.entries(characterDatabase)) {
@@ -776,7 +776,7 @@ export const getCharacterForManga = (mangaTitle) => {
             return character;
         }
     }
-
+    
     // Return default character if no match found
     return characterDatabase.default;
 };
