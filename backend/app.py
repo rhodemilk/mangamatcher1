@@ -23,8 +23,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 # Configure Gemini AI
-GEMINI_API_KEY = os.getenv(
-    'GEMINI_API_KEY', 'AIzaSyDJBS3hSaV5O3fL1l-BYFoTxzAFdMl1BI0')
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 if GEMINI_API_KEY:
     genai.configure(api_key=GEMINI_API_KEY)
     model = genai.GenerativeModel('gemini-2.0-flash')
@@ -204,12 +203,12 @@ def get_quiz_options():
         demographic_list = [d[0] for d in demographics if d[0]]
         year_buckets = db.session.query(Manga.year_bucket).distinct().all()
         year_bucket_list = [y[0] for y in year_buckets if y[0]]
-        
+
         # Filter out Sci-Fi if it exists and replace with Science Fiction
         if 'Sci-Fi' in genre_list and 'Science Fiction' in genre_list:
             genre_list = [g for g in genre_list if g != 'Sci-Fi']
             print("Removed duplicate Sci-Fi genre")
-        
+
         print(
             f"Quiz options - Genres: {len(genre_list)}, Demographics: {len(demographic_list)}, Year buckets: {len(year_bucket_list)}")
         return jsonify({
