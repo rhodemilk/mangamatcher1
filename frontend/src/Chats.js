@@ -163,13 +163,13 @@ function Chats() {
         return (
             <div className="chats-container">
                 <div className="chats-header">
-                    <h1>💬 Character Chats</h1>
-                    <p>Chat with your favorite manga characters!</p>
+                    <h1>💬 Character Yaps</h1>
+                    <p>Yap with your favorite manga characters!</p>
                 </div>
                 <div className="empty-chats">
                     <div className="empty-state">
-                        <h2>🌟 Start Your Character Journey!</h2>
-                        <p>Take a quiz and like some manga to unlock character chats!</p>
+                        <h2>🌟 Start Your Character Journey</h2>
+                        <p>Take a quiz and swipe on some manga to unlock character chats</p>
                         <Link to="/" className="btn btn-primary">Take Quiz</Link>
                     </div>
                 </div>
@@ -180,7 +180,7 @@ function Chats() {
     return (
         <div className="chats-container">
             <div className="chats-header">
-                <h1>💬 Character Chats</h1>
+                <h1>Character Chat</h1>
                 <p>Chat with your favorite manga characters!</p>
             </div>
 
