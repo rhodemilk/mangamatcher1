@@ -202,7 +202,7 @@ function Recommendations({ recommendations, onBackToQuiz }) {
             </div>
 
             <div className="instructions">
-                <p>Use the buttons or arrow keys (← →) to swipe</p>
+                <p>Use the buttons to swipe</p>
             </div>
         </div>
     );

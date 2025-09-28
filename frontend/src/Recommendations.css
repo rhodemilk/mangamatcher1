@@ -29,8 +29,8 @@
 .card-container {
     position: relative;
     width: 100%;
-    max-width: 400px;
-    height: 600px;
+    max-width: 500px;
+    height: 700px;
     margin: 20px 0;
     perspective: 1000px;
 }
@@ -134,14 +134,10 @@
 }
 
 .manga-description p {
-    color: #666;
+    color: #595959;
     line-height: 1.4;
     font-size: 0.9rem;
     margin: 0;
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
 }
 
 .manga-tags {
@@ -160,10 +156,15 @@
 }
 
 .action-buttons {
+    position: absolute;
+    top: 50%;
+    left: 230px;
+    right: 230px;
+    transform: translateY(-50%);
     display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin: 20px 0;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 10;
 }
 
 .action-btn {
@@ -174,7 +175,7 @@
     font-size: 1.5rem;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -199,7 +200,7 @@
 }
 
 .like-btn {
-    background: #2ed573;
+    background: #26d065;
     color: white;
 }
 

@@ -154,8 +154,8 @@ function Quiz({ onQuizComplete, onError }) {
                                     />
                                     <span className="option-text">
                                         {demographic}
-                                        {demographic === 'Shōnen' && ' (Young boys)'}
-                                        {demographic === 'Shōjo' && ' (Young girls)'}
+                                        {demographic === 'Shōnen' && ' (Young Men)'}
+                                        {demographic === 'Shōjo' && ' (Young Women)'}
                                         {demographic === 'Seinen' && ' (Adult men)'}
                                         {demographic === 'Josei' && ' (Adult women)'}
                                     </span>
@@ -182,7 +182,6 @@ function Quiz({ onQuizComplete, onError }) {
                                         {bucket === 'classic' && 'Classic (70s-90s)'}
                                         {bucket === '2000s' && '2000s (2000-2009)'}
                                         {bucket === 'modern' && 'Modern (2010-present)'}
-                                        {!['classic', '2000s', 'modern'].includes(bucket) && bucket}
                                     </span>
                                 </label>
                             ))}
@@ -190,6 +189,7 @@ function Quiz({ onQuizComplete, onError }) {
                     </div>
                 );
 
+            //Make this part of the database
             case 4:
                 return (
                     <div className="quiz-step">
@@ -233,8 +233,8 @@ function Quiz({ onQuizComplete, onError }) {
     return (
         <div className="quiz-container">
             <div className="quiz-header">
-                <h1>🌸 MangaMatcher Quiz</h1>
-                <p>Help us find your perfect manga recommendations!</p>
+                <h1>🌸Welcome to MangaMatcher</h1>
+                <p>Help us find your next manga!</p>
                 <div className="progress-bar">
                     <div
                         className="progress-fill"
