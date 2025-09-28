@@ -4,10 +4,10 @@ A React + Flask application that helps you discover manga based on your preferen
 
 ## ✨ Features
 
-- **Interactive Quiz**: Answer questions about your preferences (genres, demographics, eras, mood)
-- **Smart Recommendations**: AI-powered recommendations using TF-IDF and cosine similarity
-- **Beautiful UI**: Modern, responsive design with swipe-like interface
-- **Manga Database**: Curated collection of popular manga with detailed information
+- **Interactive Quiz**: Answer questions about your manga preferences (genres, demographics, eras, mood)
+- **Smart Recommendations**: Using Machine Learning from scratch the recommendation system recommends you mangas and links them to amazon using ISBN.
+- **Character Chats**: Once you've selected your picks, you can chat to the character to know a little more about their respective story.
+- **Manga Database**: Scraped from Google Books and Anilist. Curated collection of popular manga with detailed information.
 
 ## 🚀 Quick Start
 
