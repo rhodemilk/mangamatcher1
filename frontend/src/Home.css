@@ -92,12 +92,10 @@
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .start-quiz-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
   background: #f8f9fa;
 }
 
@@ -106,7 +104,7 @@
 }
 
 .how-it-works h2 {
-  color: #e91e63;
+  color: white;
   margin-bottom: 40px;
   font-size: 2rem;
 }
@@ -140,7 +138,7 @@
 }
 
 .step h3 {
-  color: #e91e63;
+  color: black;
   margin-bottom: 15px;
   font-size: 1.4rem;
 }
