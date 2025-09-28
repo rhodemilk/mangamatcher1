@@ -171,18 +171,18 @@ function Quiz({ onQuizComplete, onError }) {
                         <h2>📅 What era of manga do you like?</h2>
                         <p className="quiz-subtitle">Select your preferred time periods</p>
                         <div className="options-grid">
-                            {quizOptions.year_buckets.map(bucket => (
-                                <label key={bucket} className="option-card">
+                            {[
+                                { value: 'classic', label: 'Classic (70s-90s)' },
+                                { value: '2000s', label: '2000s (2000-2009)' },
+                                { value: 'modern', label: 'Modern (2010-present)' }
+                            ].map(era => (
+                                <label key={era.value} className="option-card">
                                     <input
                                         type="checkbox"
-                                        checked={answers.eras.includes(bucket)}
-                                        onChange={() => handleEraToggle(bucket)}
+                                        checked={answers.eras.includes(era.value)}
+                                        onChange={() => handleEraToggle(era.value)}
                                     />
-                                    <span className="option-text">
-                                        {bucket === 'classic' && 'Classic (70s-90s)'}
-                                        {bucket === '2000s' && '2000s (2000-2009)'}
-                                        {bucket === 'modern' && 'Modern (2010-present)'}
-                                    </span>
+                                    <span className="option-text">{era.label}</span>
                                 </label>
                             ))}
                         </div>

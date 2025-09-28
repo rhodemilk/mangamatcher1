@@ -1,6 +1,6 @@
 .chats-container {
     min-height: 100vh;
-    background: rgb(110, 201, 231);;
+    background: url('../public/4JY2Ct-3785027865.jpg') center/cover no-repeat;
     padding: 20px;
     font-family: 'Arial', sans-serif;
 }
