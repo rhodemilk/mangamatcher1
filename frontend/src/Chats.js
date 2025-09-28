@@ -196,7 +196,16 @@ function Chats() {
                                     onClick={() => openChat(manga)}
                                 >
                                     <div className="character-avatar">
-                                        <span className="avatar-icon">👤</span>
+                                        <img 
+                                            src={manga.manga.cover_image_url} 
+                                            alt={`${character.name} from ${manga.manga.title}`}
+                                            className="avatar-image"
+                                            onError={(e) => {
+                                                e.target.style.display = 'none';
+                                                e.target.nextSibling.style.display = 'flex';
+                                            }}
+                                        />
+                                        <span className="avatar-icon" style={{display: 'none'}}>👤</span>
                                     </div>
                                     <div className="character-info">
                                         <h3>{character.name}</h3>
