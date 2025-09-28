@@ -323,7 +323,8 @@
     padding: 60px 30px;
     text-align: center;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    margin-bottom: 30px;
+    margin: 0 auto 30px auto;
+    max-width: 500px;
 }
 
 .empty-state h2 {
