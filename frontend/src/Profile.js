@@ -1,0 +1,156 @@
+import React, { useState, useEffect } from 'react';
+import './Profile.css';
+
+function Profile() {
+    const [likedManga, setLikedManga] = useState([]);
+    const [userStats, setUserStats] = useState({
+        totalQuizzes: 0,
+        totalLiked: 0,
+        favoriteGenres: [],
+        favoriteDemographics: []
+    });
+
+    useEffect(() => {
+        // Load liked manga from localStorage
+        const savedLikedManga = localStorage.getItem('likedManga');
+        if (savedLikedManga) {
+            setLikedManga(JSON.parse(savedLikedManga));
+        }
+
+        // Load user stats from localStorage
+        const savedStats = localStorage.getItem('userStats');
+        if (savedStats) {
+            setUserStats(JSON.parse(savedStats));
+        }
+    }, []);
+
+    const clearHistory = () => {
+        localStorage.removeItem('likedManga');
+        localStorage.removeItem('userStats');
+        setLikedManga([]);
+        setUserStats({
+            totalQuizzes: 0,
+            totalLiked: 0,
+            favoriteGenres: [],
+            favoriteDemographics: []
+        });
+    };
+
+    return (
+        <div className="profile-container">
+            <div className="profile-header">
+                <h1>🌸 Your MangaMatcher Profile</h1>
+                <p>Track your manga journey and preferences</p>
+            </div>
+
+            <div className="profile-content">
+                <div className="stats-section">
+                    <h2>📊 Your Stats</h2>
+                    <div className="stats-grid">
+                        <div className="stat-card">
+                            <div className="stat-number">{userStats.totalQuizzes}</div>
+                            <div className="stat-label">Quizzes Taken</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">{userStats.totalLiked}</div>
+                            <div className="stat-label">Manga Liked</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">{likedManga.length}</div>
+                            <div className="stat-label">Current Favorites</div>
+                        </div>
+                    </div>
+                </div>
+
+                {userStats.favoriteGenres.length > 0 && (
+                    <div className="preferences-section">
+                        <h2>🎯 Your Preferences</h2>
+                        <div className="preference-group">
+                            <h3>Favorite Genres</h3>
+                            <div className="preference-tags">
+                                {userStats.favoriteGenres.map((genre, index) => (
+                                    <span key={index} className="preference-tag genre-tag">
+                                        {genre}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                        {userStats.favoriteDemographics.length > 0 && (
+                            <div className="preference-group">
+                                <h3>Favorite Demographics</h3>
+                                <div className="preference-tags">
+                                    {userStats.favoriteDemographics.map((demo, index) => (
+                                        <span key={index} className="preference-tag demo-tag">
+                                            {demo}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                )}
+
+                {likedManga.length > 0 && (
+                    <div className="liked-manga-section">
+                        <h2>❤️ Your Liked Manga</h2>
+                        <div className="manga-grid">
+                            {likedManga.map((manga, index) => (
+                                <div key={index} className="manga-card">
+                                    <div className="manga-image">
+                                        {manga.manga.cover_image_url ? (
+                                            <img
+                                                src={manga.manga.cover_image_url}
+                                                alt={manga.manga.title}
+                                                onError={(e) => {
+                                                    e.target.style.display = 'none';
+                                                    e.target.nextSibling.style.display = 'flex';
+                                                }}
+                                            />
+                                        ) : null}
+                                        <div className="no-image" style={{ display: manga.manga.cover_image_url ? 'none' : 'flex' }}>
+                                            <span>📚</span>
+                                        </div>
+                                    </div>
+                                    <div className="manga-info">
+                                        <h3>{manga.manga.title}</h3>
+                                        <p>by {manga.manga.author}</p>
+                                        <div className="manga-meta">
+                                            <span className="genre">{manga.manga.genre}</span>
+                                            <span className="demographic">{manga.manga.demographic}</span>
+                                        </div>
+                                        {manga.manga.amazon_link && (
+                                            <a
+                                                href={manga.manga.amazon_link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="amazon-link"
+                                            >
+                                                View on Amazon
+                                            </a>
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {likedManga.length === 0 && userStats.totalQuizzes === 0 && (
+                    <div className="empty-state">
+                        <h2>🌟 Start Your Manga Journey!</h2>
+                        <p>Take your first quiz to discover amazing manga and build your profile.</p>
+                        <a href="/" className="btn btn-primary">Take Quiz</a>
+                    </div>
+                )}
+
+                <div className="profile-actions">
+                    <button onClick={clearHistory} className="btn btn-secondary">
+                        Clear History
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default Profile;

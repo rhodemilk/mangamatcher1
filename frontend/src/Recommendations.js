@@ -22,7 +22,10 @@ function Recommendations({ recommendations, onBackToQuiz }) {
         setIsAnimating(true);
 
         if (direction === 'like') {
-            setLikedManga(prev => [...prev, currentManga]);
+            const newLikedManga = [...likedManga, currentManga];
+            setLikedManga(newLikedManga);
+            // Save to localStorage
+            localStorage.setItem('likedManga', JSON.stringify(newLikedManga));
         } else {
             setRejectedManga(prev => [...prev, currentManga]);
         }
