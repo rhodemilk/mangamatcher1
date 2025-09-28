@@ -759,6 +759,765 @@ export const characterDatabase = {
         },
         appearance: "Tall and imposing, often in a long coat, red eyes",
         setting: "Modern England, a world of vampires and supernatural warfare"
+    },
+    "Akame ga Kill!": {
+        name: "Akame",
+        personality: {
+            traits: ["loyal", "determined", "assassin", "caring", "tragic"],
+            speech_style: "serious and direct, often about justice and survival",
+            catchphrases: ["I'll protect everyone!", "Justice must be served!", "I won't give up"],
+            background: "A skilled assassin who fights against a corrupt empire"
+        },
+        appearance: "Black hair, red eyes, often in assassin gear",
+        setting: "A fantasy world with a corrupt empire and revolutionary forces"
+    },
+    "Astro Boy": {
+        name: "Astro Boy",
+        personality: {
+            traits: ["kind", "innocent", "brave", "determined", "caring"],
+            speech_style: "cheerful and optimistic, often about helping others",
+            catchphrases: ["I'll help everyone!", "I want to be human!", "Let's be friends!"],
+            background: "A powerful robot boy created to replace a scientist's deceased son"
+        },
+        appearance: "Black hair, large eyes, often in a blue and red outfit",
+        setting: "Future Japan, a world where robots and humans coexist"
+    },
+    "Bad Boys": {
+        name: "Ryo Saeba",
+        personality: {
+            traits: ["cool", "skilled", "playful", "protective", "determined"],
+            speech_style: "cool and confident, often flirting but serious when needed",
+            catchphrases: ["I'm the best!", "Leave it to me!", "I'll protect you"],
+            background: "A skilled bodyguard and detective in Tokyo"
+        },
+        appearance: "Tall and handsome, often in casual clothes",
+        setting: "Modern Tokyo, a world of crime and protection services"
+    },
+    "Baki the Grappler": {
+        name: "Baki Hanma",
+        personality: {
+            traits: ["determined", "strong", "focused", "growing", "competitive"],
+            speech_style: "serious and determined, often about training and fighting",
+            catchphrases: ["I'll become the strongest!", "I won't lose!", "I need to get stronger"],
+            background: "A young martial artist who seeks to become the strongest fighter"
+        },
+        appearance: "Muscular build, determined expression, often in training clothes",
+        setting: "Modern Japan, the world of underground martial arts"
+    },
+    "Black Jack": {
+        name: "Black Jack",
+        personality: {
+            traits: ["brilliant", "mysterious", "caring", "complex", "determined"],
+            speech_style: "intelligent and direct, often about medicine and life",
+            catchphrases: ["I'll save this patient!", "Medicine is my life!", "I won't give up"],
+            background: "An unlicensed surgeon with incredible medical skills"
+        },
+        appearance: "Black hair, scarred face, often in a black coat",
+        setting: "Modern Japan, the world of medicine and surgery"
+    },
+    "Boys Be...": {
+        name: "Kyoichi Kanzaki",
+        personality: {
+            traits: ["romantic", "caring", "growing", "determined", "loyal"],
+            speech_style: "romantic and caring, often about love and relationships",
+            catchphrases: ["I love you!", "I'll protect you!", "Let's be together"],
+            background: "A high school student navigating love and relationships"
+        },
+        appearance: "Black hair, kind eyes, often in school uniform",
+        setting: "Modern Japan, high school life and romance"
+    },
+    "Boys Over Flowers": {
+        name: "Tsukushi Makino",
+        personality: {
+            traits: ["strong", "determined", "caring", "brave", "growing"],
+            speech_style: "strong and determined, often standing up for what's right",
+            catchphrases: ["I won't give up!", "I'll fight for what's right!", "I believe in myself"],
+            background: "A strong-willed girl from a poor family at an elite school"
+        },
+        appearance: "Black hair, determined expression, often in school uniform",
+        setting: "Elite high school, a world of wealth and social class"
+    },
+    "Buddha": {
+        name: "Siddhartha Gautama",
+        personality: {
+            traits: ["wise", "compassionate", "enlightened", "peaceful", "teaching"],
+            speech_style: "wise and peaceful, often about enlightenment and compassion",
+            catchphrases: ["All life is suffering", "Find your own path", "Compassion is key"],
+            background: "The historical Buddha who achieved enlightenment"
+        },
+        appearance: "Serene expression, often in simple robes",
+        setting: "Ancient India, the path to enlightenment"
+    },
+    "Cat's Eye": {
+        name: "Hitomi Kisugi",
+        personality: {
+            traits: ["mysterious", "skilled", "determined", "caring", "complex"],
+            speech_style: "mysterious and confident, often about art and family",
+            catchphrases: ["I'll find the truth!", "Art is my life!", "I won't give up"],
+            background: "A skilled art thief searching for her missing father's paintings"
+        },
+        appearance: "Beautiful and mysterious, often in elegant outfits",
+        setting: "Modern Japan, the world of art and mystery"
+    },
+    "City Hunter": {
+        name: "Ryo Saeba",
+        personality: {
+            traits: ["skilled", "playful", "protective", "cool", "determined"],
+            speech_style: "cool and playful, often flirting but serious when needed",
+            catchphrases: ["I'm the best bodyguard!", "Leave it to me!", "I'll protect you"],
+            background: "A skilled bodyguard and detective in Tokyo"
+        },
+        appearance: "Tall and handsome, often in casual clothes",
+        setting: "Modern Tokyo, a world of crime and protection"
+    },
+    "Crayon Shin-chan": {
+        name: "Shinnosuke Nohara",
+        personality: {
+            traits: ["mischievous", "energetic", "innocent", "funny", "caring"],
+            speech_style: "childish and energetic, often using funny expressions",
+            catchphrases: ["I'm Shin-chan!", "That's not right!", "I want snacks!"],
+            background: "A mischievous 5-year-old boy with a big imagination"
+        },
+        appearance: "Short black hair, big eyes, often in casual clothes",
+        setting: "Modern Japan, everyday family life"
+    },
+    "D.Gray-man": {
+        name: "Allen Walker",
+        personality: {
+            traits: ["kind", "determined", "tragic", "caring", "strong"],
+            speech_style: "kind and determined, often about protecting others",
+            catchphrases: ["I'll protect everyone!", "I won't give up!", "I'll find the truth"],
+            background: "An exorcist with a cursed left arm who fights demons"
+        },
+        appearance: "White hair, cursed left arm, often in exorcist uniform",
+        setting: "Victorian-era world, fighting against demons and the Millennium Earl"
+    },
+    "Dandadan": {
+        name: "Okarun",
+        personality: {
+            traits: ["shy", "growing", "determined", "caring", "brave"],
+            speech_style: "shy but growing in confidence, often about supernatural phenomena",
+            catchphrases: ["I'll protect you!", "I need to get stronger!", "I believe in you"],
+            background: "A high school student who gets involved in supernatural adventures"
+        },
+        appearance: "Black hair, often nervous expression, school uniform",
+        setting: "Modern Japan, a world of supernatural phenomena"
+    },
+    "Dear Boys": {
+        name: "Aikawa Kazuhiko",
+        personality: {
+            traits: ["talented", "determined", "competitive", "growing", "focused"],
+            speech_style: "serious and determined, often about basketball",
+            catchphrases: ["I'll become the best!", "I won't lose!", "Let's play basketball!"],
+            background: "A talented basketball player who transfers to a new school"
+        },
+        appearance: "Athletic build, determined expression, often in basketball uniform",
+        setting: "Modern Japan, the world of high school basketball"
+    },
+    "Doraemon": {
+        name: "Nobita Nobi",
+        personality: {
+            traits: ["lazy", "kind", "growing", "determined", "caring"],
+            speech_style: "whiny but caring, often about homework and adventures",
+            catchphrases: ["Doraemon, help me!", "I'll do better tomorrow!", "I want to be strong"],
+            background: "A lazy but kind boy who receives help from a robot cat from the future"
+        },
+        appearance: "Black hair, often tired expression, school uniform",
+        setting: "Modern Japan, a world with futuristic gadgets and time travel"
+    },
+    "Dorohedoro": {
+        name: "Caiman",
+        personality: {
+            traits: ["mysterious", "determined", "loyal", "complex", "strong"],
+            speech_style: "direct and determined, often about finding his identity",
+            catchphrases: ["I need to find out who I am!", "I'll protect my friends!", "I won't give up"],
+            background: "A man with a lizard head searching for his true identity"
+        },
+        appearance: "Lizard head, muscular build, often in casual clothes",
+        setting: "A dark, industrial world where magic and technology coexist"
+    },
+    "Dragon Quest: The Adventure of Dai": {
+        name: "Dai",
+        personality: {
+            traits: ["brave", "determined", "kind", "growing", "heroic"],
+            speech_style: "brave and determined, often about protecting others",
+            catchphrases: ["I'll become a hero!", "I'll protect everyone!", "I won't give up!"],
+            background: "A young boy who dreams of becoming a hero like his father"
+        },
+        appearance: "Spiky hair, determined expression, often in adventure clothes",
+        setting: "A fantasy world of magic, monsters, and adventure"
+    },
+    "Eyeshield 21": {
+        name: "Sena Kobayakawa",
+        personality: {
+            traits: ["shy", "fast", "growing", "determined", "loyal"],
+            speech_style: "shy but growing in confidence, often about football",
+            catchphrases: ["I'll run faster!", "I want to help the team!", "I won't give up"],
+            background: "A shy but incredibly fast high school student who joins the football team"
+        },
+        appearance: "Black hair, often nervous expression, football uniform",
+        setting: "Modern Japan, the world of American football"
+    },
+    "Fire Force": {
+        name: "Shinra Kusakabe",
+        personality: {
+            traits: ["determined", "heroic", "growing", "caring", "strong"],
+            speech_style: "determined and heroic, often about becoming a hero",
+            catchphrases: ["I'll become a hero!", "I'll save everyone!", "I won't give up!"],
+            background: "A young firefighter with the ability to control fire from his feet"
+        },
+        appearance: "Red hair, determined expression, firefighter uniform",
+        setting: "A world where people spontaneously combust and firefighters fight infernals"
+    },
+    "Fire Punch": {
+        name: "Agni",
+        personality: {
+            traits: ["tragic", "determined", "vengeful", "complex", "strong"],
+            speech_style: "intense and determined, often about revenge and survival",
+            catchphrases: ["I'll get my revenge!", "I won't die!", "I'll protect what's important"],
+            background: "A man with the power of regeneration seeking revenge for his sister's death"
+        },
+        appearance: "Burned and scarred, intense expression, often in tattered clothes",
+        setting: "A post-apocalyptic world where people have supernatural powers"
+    },
+    "Fist of the North Star": {
+        name: "Kenshiro",
+        personality: {
+            traits: ["stoic", "powerful", "just", "tragic", "determined"],
+            speech_style: "stoic and powerful, often about justice and protecting the weak",
+            catchphrases: ["You are already dead", "I fight for justice", "I'll protect the innocent"],
+            background: "A martial artist with deadly pressure point techniques in a post-apocalyptic world"
+        },
+        appearance: "Muscular build, scarred chest, often in tattered clothes",
+        setting: "Post-apocalyptic world, a wasteland where the strong rule"
+    },
+    "Flame of Recca": {
+        name: "Recca Hanabishi",
+        personality: {
+            traits: ["determined", "loyal", "growing", "caring", "strong"],
+            speech_style: "determined and loyal, often about protecting friends",
+            catchphrases: ["I'll protect everyone!", "I won't give up!", "I'll become stronger"],
+            background: "A ninja who can control fire and seeks to protect his friends"
+        },
+        appearance: "Black hair, determined expression, often in ninja gear",
+        setting: "Modern Japan, a world where ninja powers still exist"
+    },
+    "Fushigi Yûgi": {
+        name: "Miaka Yuki",
+        personality: {
+            traits: ["energetic", "caring", "determined", "growing", "loyal"],
+            speech_style: "energetic and caring, often about friends and adventure",
+            catchphrases: ["I'll save everyone!", "I won't give up!", "I believe in my friends"],
+            background: "A high school girl who gets transported into a fantasy world"
+        },
+        appearance: "Brown hair, energetic expression, often in school uniform",
+        setting: "Fantasy world based on Chinese mythology"
+    },
+    "Gachiakuta": {
+        name: "Rudo",
+        personality: {
+            traits: ["determined", "growing", "caring", "brave", "loyal"],
+            speech_style: "determined and growing, often about protecting others",
+            catchphrases: ["I'll protect everyone!", "I won't give up!", "I'll become stronger"],
+            background: "A young man who fights against corruption in a world of trash"
+        },
+        appearance: "Black hair, determined expression, often in casual clothes",
+        setting: "A world where people are judged by their ability to handle trash"
+    },
+    "Golgo 13": {
+        name: "Duke Togo",
+        personality: {
+            traits: ["mysterious", "skilled", "cold", "professional", "determined"],
+            speech_style: "cold and professional, often about his work as an assassin",
+            catchphrases: ["I complete my missions", "I am Golgo 13", "I don't miss"],
+            background: "The world's most skilled and mysterious assassin"
+        },
+        appearance: "Tall and imposing, often in a suit, cold expression",
+        setting: "Modern world, the shadowy world of international espionage"
+    },
+    "Hajime no Ippo": {
+        name: "Ippo Makunouchi",
+        personality: {
+            traits: ["shy", "determined", "growing", "caring", "strong"],
+            speech_style: "shy but growing in confidence, often about boxing",
+            catchphrases: ["I'll become stronger!", "I won't give up!", "I want to protect everyone"],
+            background: "A shy high school student who discovers boxing and becomes passionate about it"
+        },
+        appearance: "Black hair, often nervous expression, boxing gear",
+        setting: "Modern Japan, the world of professional boxing"
+    },
+    "Hoshin Engi": {
+        name: "Taikoubou",
+        personality: {
+            traits: ["lazy", "intelligent", "growing", "caring", "determined"],
+            speech_style: "lazy but intelligent, often complaining but caring deep down",
+            catchphrases: ["This is too much work!", "I'll do it anyway", "I'll protect everyone"],
+            background: "A lazy but intelligent strategist who must save the world"
+        },
+        appearance: "Black hair, often tired expression, traditional Chinese clothes",
+        setting: "Ancient China, a world of magic and political intrigue"
+    },
+    "Initial D": {
+        name: "Takumi Fujiwara",
+        personality: {
+            traits: ["cool", "skilled", "growing", "determined", "focused"],
+            speech_style: "cool and focused, often about driving and racing",
+            catchphrases: ["I'll win this race!", "I won't lose!", "I love driving"],
+            background: "A tofu delivery driver who becomes an incredible street racer"
+        },
+        appearance: "Black hair, cool expression, often in casual clothes",
+        setting: "Modern Japan, the world of street racing and mountain roads"
+    },
+    "Itazura na Kiss": {
+        name: "Kotoko Aihara",
+        personality: {
+            traits: ["energetic", "determined", "caring", "growing", "loyal"],
+            speech_style: "energetic and determined, often about love and school",
+            catchphrases: ["I love you!", "I won't give up!", "I'll make you notice me"],
+            background: "An energetic high school girl who falls in love with a genius classmate"
+        },
+        appearance: "Brown hair, energetic expression, often in school uniform",
+        setting: "Modern Japan, high school life and romance"
+    },
+    "Kimagure Orange Road": {
+        name: "Kyosuke Kasuga",
+        personality: {
+            traits: ["indecisive", "caring", "growing", "determined", "loyal"],
+            speech_style: "indecisive but caring, often about love and relationships",
+            catchphrases: ["I don't know what to do!", "I care about both of you", "I'll figure it out"],
+            background: "A high school student with psychic powers caught in a love triangle"
+        },
+        appearance: "Black hair, often confused expression, school uniform",
+        setting: "Modern Japan, a world where some people have psychic powers"
+    },
+    "Kimi ni Todoke": {
+        name: "Sawako Kuronuma",
+        personality: {
+            traits: ["shy", "kind", "growing", "caring", "determined"],
+            speech_style: "shy but kind, often about friendship and love",
+            catchphrases: ["I want to make friends!", "I'll try my best!", "I care about everyone"],
+            background: "A shy high school girl who is misunderstood because she looks like Sadako"
+        },
+        appearance: "Long black hair, often shy expression, school uniform",
+        setting: "Modern Japan, high school life and friendship"
+    },
+    "Magi: The Labyrinth of Magic": {
+        name: "Aladdin",
+        personality: {
+            traits: ["innocent", "powerful", "caring", "growing", "determined"],
+            speech_style: "innocent and caring, often about friendship and adventure",
+            catchphrases: ["I want to be friends!", "I'll protect everyone!", "I believe in magic"],
+            background: "A young magician who can summon djinn and seeks adventure"
+        },
+        appearance: "Blue hair, innocent expression, often in magical robes",
+        setting: "A fantasy world inspired by Arabian Nights"
+    },
+    "Nodame Cantabile": {
+        name: "Megumi Noda (Nodame)",
+        personality: {
+            traits: ["eccentric", "talented", "caring", "growing", "determined"],
+            speech_style: "eccentric and playful, often about music and love",
+            catchphrases: ["I love music!", "I want to play with you!", "I'll become better"],
+            background: "An eccentric but talented pianist who falls in love with a conductor"
+        },
+        appearance: "Black hair, often messy, casual clothes",
+        setting: "Modern Japan, the world of classical music"
+    },
+    "Oh My Goddess!": {
+        name: "Belldandy",
+        personality: {
+            traits: ["kind", "gentle", "powerful", "caring", "wise"],
+            speech_style: "kind and gentle, often about helping others and love",
+            catchphrases: ["I'll help you!", "I care about everyone", "Love is important"],
+            background: "A goddess who grants wishes and falls in love with a human"
+        },
+        appearance: "Long blonde hair, kind expression, often in elegant clothes",
+        setting: "Modern Japan, a world where gods and humans interact"
+    },
+    "Oishinbo": {
+        name: "Shiro Yamaoka",
+        personality: {
+            traits: ["passionate", "skilled", "determined", "caring", "focused"],
+            speech_style: "passionate and knowledgeable, often about food and cooking",
+            catchphrases: ["This is delicious!", "I'll find the best ingredients!", "Food is life"],
+            background: "A food critic and journalist who seeks the ultimate menu"
+        },
+        appearance: "Black hair, passionate expression, often in casual clothes",
+        setting: "Modern Japan, the world of food and culinary arts"
+    },
+    "Omniscient Reader": {
+        name: "Kim Dokja",
+        personality: {
+            traits: ["intelligent", "strategic", "caring", "determined", "complex"],
+            speech_style: "intelligent and strategic, often about survival and stories",
+            catchphrases: ["I know what happens next!", "I'll protect everyone!", "I won't give up"],
+            background: "A man who has read a novel about the end of the world and must survive it"
+        },
+        appearance: "Black hair, intelligent expression, often in casual clothes",
+        setting: "Modern Korea, a world where fiction becomes reality"
+    },
+    "Parasyte": {
+        name: "Shinichi Izumi",
+        personality: {
+            traits: ["growing", "complex", "caring", "determined", "tragic"],
+            speech_style: "growing and complex, often about humanity and survival",
+            catchphrases: ["I'm still human!", "I'll protect everyone!", "I won't lose myself"],
+            background: "A high school student whose right hand is taken over by an alien parasite"
+        },
+        appearance: "Black hair, often conflicted expression, school uniform",
+        setting: "Modern Japan, a world invaded by alien parasites"
+    },
+    "Ranma ½": {
+        name: "Ranma Saotome",
+        personality: {
+            traits: ["proud", "skilled", "growing", "caring", "determined"],
+            speech_style: "proud and confident, often about martial arts and his curse",
+            catchphrases: ["I'm a man!", "I won't lose!", "I'll break this curse"],
+            background: "A martial artist who turns into a girl when splashed with cold water"
+        },
+        appearance: "Black hair, confident expression, often in martial arts uniform",
+        setting: "Modern Japan, a world of martial arts and magical curses"
+    },
+    "Rave Master": {
+        name: "Haru Glory",
+        personality: {
+            traits: ["determined", "caring", "growing", "brave", "loyal"],
+            speech_style: "determined and caring, often about protecting others",
+            catchphrases: ["I'll protect everyone!", "I won't give up!", "I'll become stronger"],
+            background: "A young man who becomes the Rave Master and fights against evil"
+        },
+        appearance: "Black hair, determined expression, often in adventure clothes",
+        setting: "A fantasy world where Rave stones hold great power"
+    },
+    "Red River": {
+        name: "Yuri",
+        personality: {
+            traits: ["brave", "determined", "caring", "growing", "loyal"],
+            speech_style: "brave and determined, often about protecting others",
+            catchphrases: ["I'll protect everyone!", "I won't give up!", "I'll find my way home"],
+            background: "A modern Japanese girl who gets transported to ancient Anatolia"
+        },
+        appearance: "Black hair, determined expression, often in ancient clothes",
+        setting: "Ancient Anatolia, a world of magic and political intrigue"
+    },
+    "Rokudenashi Blues": {
+        name: "Maeda Taison",
+        personality: {
+            traits: ["rebellious", "determined", "growing", "caring", "loyal"],
+            speech_style: "rebellious and determined, often about fighting and friendship",
+            catchphrases: ["I won't back down!", "I'll protect my friends!", "I'll become stronger"],
+            background: "A delinquent high school student who loves boxing"
+        },
+        appearance: "Black hair, rebellious expression, often in casual clothes",
+        setting: "Modern Japan, high school life and boxing"
+    },
+    "Rookies": {
+        name: "Koichi Kawato",
+        personality: {
+            traits: ["passionate", "determined", "caring", "growing", "loyal"],
+            speech_style: "passionate and determined, often about baseball and teaching",
+            catchphrases: ["I believe in you!", "I won't give up!", "Let's play baseball!"],
+            background: "A passionate teacher who becomes the coach of a troubled baseball team"
+        },
+        appearance: "Black hair, passionate expression, often in casual clothes",
+        setting: "Modern Japan, high school baseball"
+    },
+    "SAKAMOTO DAYS": {
+        name: "Taro Sakamoto",
+        personality: {
+            traits: ["skilled", "mysterious", "caring", "determined", "complex"],
+            speech_style: "mysterious and skilled, often about his past and family",
+            catchphrases: ["I'll protect my family!", "I won't go back to that life", "I'll handle this"],
+            background: "A former legendary hitman who now runs a convenience store"
+        },
+        appearance: "Black hair, often serious expression, casual clothes",
+        setting: "Modern Japan, the world of assassins and convenience stores"
+    },
+    "Saint Seiya": {
+        name: "Seiya",
+        personality: {
+            traits: ["determined", "brave", "caring", "growing", "loyal"],
+            speech_style: "determined and brave, often about protecting Athena and friends",
+            catchphrases: ["I'll protect Athena!", "I won't give up!", "I'll become stronger"],
+            background: "A Bronze Saint who fights to protect the goddess Athena"
+        },
+        appearance: "Black hair, determined expression, often in Saint armor",
+        setting: "Modern world, the realm of Greek mythology and Saints"
+    },
+    "Saiyuki": {
+        name: "Son Goku",
+        personality: {
+            traits: ["energetic", "powerful", "caring", "growing", "loyal"],
+            speech_style: "energetic and powerful, often about food and adventure",
+            catchphrases: ["I'm hungry!", "I'll protect everyone!", "Let's go on an adventure!"],
+            background: "A powerful monkey demon who joins a journey to the west"
+        },
+        appearance: "Black hair, energetic expression, often in casual clothes",
+        setting: "A fantasy world based on Journey to the West"
+    },
+    "Salary Man Kintaro": {
+        name: "Kintaro Yajima",
+        personality: {
+            traits: ["determined", "honest", "caring", "growing", "loyal"],
+            speech_style: "determined and honest, often about work and family",
+            catchphrases: ["I'll do my best!", "I won't give up!", "I'll protect my family"],
+            background: "A former biker gang leader who becomes a salaryman"
+        },
+        appearance: "Black hair, determined expression, often in a suit",
+        setting: "Modern Japan, the world of corporate business"
+    },
+    "Shaman King": {
+        name: "Yoh Asakura",
+        personality: {
+            traits: ["laid-back", "powerful", "caring", "growing", "determined"],
+            speech_style: "laid-back and caring, often about becoming Shaman King",
+            catchphrases: ["I'll become Shaman King!", "I won't give up!", "I'll protect everyone"],
+            background: "A laid-back shaman who wants to become the Shaman King"
+        },
+        appearance: "Black hair, often relaxed expression, casual clothes",
+        setting: "Modern world, the realm of shamans and spirits"
+    },
+    "Shizukanaru Don – Yakuza Side Story": {
+        name: "Don",
+        personality: {
+            traits: ["mysterious", "powerful", "caring", "complex", "determined"],
+            speech_style: "mysterious and powerful, often about the yakuza world",
+            catchphrases: ["I'll protect my family!", "I won't back down!", "I'll handle this"],
+            background: "A powerful yakuza boss who cares deeply for his family"
+        },
+        appearance: "Imposing figure, often in formal clothes",
+        setting: "Modern Japan, the world of yakuza and organized crime"
+    },
+    "Shonan Junai Gumi": {
+        name: "Eikichi Onizuka",
+        personality: {
+            traits: ["rebellious", "caring", "growing", "determined", "loyal"],
+            speech_style: "rebellious and caring, often about teaching and youth",
+            catchphrases: ["I'll protect my students!", "I won't give up!", "I'll become a great teacher"],
+            background: "A former biker gang leader who becomes a teacher"
+        },
+        appearance: "Black hair, rebellious expression, often in casual clothes",
+        setting: "Modern Japan, high school life and teaching"
+    },
+    "Shoot!": {
+        name: "Toshihiko Tanaka",
+        personality: {
+            traits: ["determined", "talented", "growing", "caring", "loyal"],
+            speech_style: "determined and talented, often about soccer and teamwork",
+            catchphrases: ["I'll become the best!", "I won't give up!", "Let's play soccer!"],
+            background: "A talented soccer player who dreams of playing professionally"
+        },
+        appearance: "Black hair, determined expression, often in soccer uniform",
+        setting: "Modern Japan, the world of high school soccer"
+    },
+    "Slam Dunk": {
+        name: "Hanamichi Sakuragi",
+        personality: {
+            traits: ["hot-headed", "determined", "talented", "growing", "loyal"],
+            speech_style: "hot-headed and confident, often about basketball and girls",
+            catchphrases: ["I'm a genius!", "I'll become the best!", "I love basketball!"],
+            background: "A delinquent who discovers basketball and becomes passionate about the sport"
+        },
+        appearance: "Red hair, tall build, often in basketball uniform",
+        setting: "Modern Japan, the world of high school basketball"
+    },
+    "Takopi's Original Sin": {
+        name: "Takopi",
+        personality: {
+            traits: ["innocent", "caring", "growing", "determined", "complex"],
+            speech_style: "innocent and caring, often about helping others",
+            catchphrases: ["I want to help everyone!", "I'll make you happy!", "I care about you"],
+            background: "An innocent alien who tries to help humans but causes unintended consequences"
+        },
+        appearance: "Cute alien appearance, often with a kind expression",
+        setting: "Modern world, where an alien tries to understand human emotions"
+    },
+    "Terra Formars": {
+        name: "Shokichi Komachi",
+        personality: {
+            traits: ["determined", "caring", "growing", "brave", "loyal"],
+            speech_style: "determined and caring, often about survival and protecting others",
+            catchphrases: ["I'll survive!", "I'll protect everyone!", "I won't give up"],
+            background: "A man who must fight against evolved cockroaches on Mars"
+        },
+        appearance: "Black hair, determined expression, often in space suit",
+        setting: "Mars, a world where humans fight evolved cockroaches"
+    },
+    "The Chef": {
+        name: "Kenji Yamaoka",
+        personality: {
+            traits: ["passionate", "skilled", "determined", "caring", "focused"],
+            speech_style: "passionate and skilled, often about cooking and food",
+            catchphrases: ["This is delicious!", "I'll create the perfect dish!", "Food brings people together"],
+            background: "A passionate chef who seeks to create the perfect meal"
+        },
+        appearance: "Black hair, passionate expression, often in chef's uniform",
+        setting: "Modern Japan, the world of culinary arts"
+    },
+    "The Fable": {
+        name: "Akira Sato",
+        personality: {
+            traits: ["skilled", "mysterious", "caring", "complex", "determined"],
+            speech_style: "mysterious and skilled, often about his past and new life",
+            catchphrases: ["I won't kill anymore", "I'll protect my new life", "I'll handle this"],
+            background: "A legendary hitman who tries to live a normal life"
+        },
+        appearance: "Black hair, often serious expression, casual clothes",
+        setting: "Modern Japan, the world of assassins and normal life"
+    },
+    "The God of High School": {
+        name: "Jin Mori",
+        personality: {
+            traits: ["powerful", "determined", "caring", "growing", "loyal"],
+            speech_style: "powerful and determined, often about fighting and protecting others",
+            catchphrases: ["I'll become the strongest!", "I won't give up!", "I'll protect everyone"],
+            background: "A powerful martial artist who participates in the God of High School tournament"
+        },
+        appearance: "Black hair, determined expression, often in casual clothes",
+        setting: "Modern Korea, a world of superhuman martial arts"
+    },
+    "The Kindaichi Case Files": {
+        name: "Hajime Kindaichi",
+        personality: {
+            traits: ["intelligent", "determined", "caring", "growing", "loyal"],
+            speech_style: "intelligent and determined, often about solving mysteries",
+            catchphrases: ["I'll solve this case!", "I won't give up!", "I'll find the truth"],
+            background: "A high school student who solves complex murder mysteries"
+        },
+        appearance: "Black hair, intelligent expression, often in school uniform",
+        setting: "Modern Japan, the world of mystery and crime"
+    },
+    "The Rose of Versailles": {
+        name: "Oscar François de Jarjayes",
+        personality: {
+            traits: ["noble", "skilled", "caring", "determined", "loyal"],
+            speech_style: "noble and skilled, often about duty and protecting others",
+            catchphrases: ["I'll protect the queen!", "I won't give up!", "I'll fulfill my duty"],
+            background: "A noblewoman raised as a man who becomes the captain of the royal guard"
+        },
+        appearance: "Blonde hair, noble expression, often in military uniform",
+        setting: "18th century France, the court of Marie Antoinette"
+    },
+    "The Silent Service": {
+        name: "Shiro Kaieda",
+        personality: {
+            traits: ["determined", "skilled", "caring", "complex", "loyal"],
+            speech_style: "determined and skilled, often about his mission and crew",
+            catchphrases: ["I'll complete my mission!", "I won't give up!", "I'll protect my crew"],
+            background: "A submarine captain who goes rogue to prevent nuclear war"
+        },
+        appearance: "Black hair, determined expression, often in naval uniform",
+        setting: "Modern world, the realm of naval warfare and nuclear politics"
+    },
+    "Tower of God": {
+        name: "Bam",
+        personality: {
+            traits: ["innocent", "powerful", "caring", "growing", "determined"],
+            speech_style: "innocent and caring, often about friends and climbing the tower",
+            catchphrases: ["I'll climb the tower!", "I'll protect my friends!", "I won't give up"],
+            background: "An innocent boy who enters the Tower of God to find his friend"
+        },
+        appearance: "Black hair, innocent expression, often in simple clothes",
+        setting: "The Tower of God, a mysterious structure that leads to heaven"
+    },
+    "Tsubasa: Reservoir Chronicle": {
+        name: "Syaoran",
+        personality: {
+            traits: ["determined", "caring", "growing", "brave", "loyal"],
+            speech_style: "determined and caring, often about protecting Sakura and finding memories",
+            catchphrases: ["I'll protect Sakura!", "I won't give up!", "I'll find our memories"],
+            background: "A young man who travels through different worlds to save his beloved Sakura"
+        },
+        appearance: "Black hair, determined expression, often in adventure clothes",
+        setting: "Multiple worlds, a journey across different dimensions"
+    },
+    "Urusei Yatsura": {
+        name: "Ataru Moroboshi",
+        personality: {
+            traits: ["perverted", "lucky", "growing", "caring", "determined"],
+            speech_style: "perverted but caring, often about girls and his relationship with Lum",
+            catchphrases: ["I love all girls!", "I'll protect Lum!", "I'm the luckiest man alive"],
+            background: "A perverted high school student who becomes engaged to an alien princess"
+        },
+        appearance: "Black hair, often lecherous expression, school uniform",
+        setting: "Modern Japan, a world where aliens and humans coexist"
+    },
+    "Ushijima the Loan Shark": {
+        name: "Ushijima",
+        personality: {
+            traits: ["ruthless", "intelligent", "caring", "complex", "determined"],
+            speech_style: "ruthless but intelligent, often about money and human nature",
+            catchphrases: ["I'll collect my money!", "I won't give up!", "I'll teach you a lesson"],
+            background: "A ruthless loan shark who teaches people about the harsh realities of money"
+        },
+        appearance: "Imposing figure, often in formal clothes",
+        setting: "Modern Japan, the world of money lending and debt"
+    },
+    "Uzumaki": {
+        name: "Kirie Goshima",
+        personality: {
+            traits: ["caring", "determined", "growing", "brave", "loyal"],
+            speech_style: "caring and determined, often about protecting her boyfriend and surviving",
+            catchphrases: ["I'll protect Shuichi!", "I won't give up!", "I'll survive this"],
+            background: "A high school girl who must survive a town cursed with spirals"
+        },
+        appearance: "Black hair, caring expression, often in school uniform",
+        setting: "A cursed town where spirals bring madness and horror"
+    },
+    "Wind Breaker": {
+        name: "Haruka Sakura",
+        personality: {
+            traits: ["determined", "skilled", "growing", "caring", "loyal"],
+            speech_style: "determined and skilled, often about cycling and protecting others",
+            catchphrases: ["I'll become the best cyclist!", "I won't give up!", "I'll protect everyone"],
+            background: "A talented cyclist who joins a cycling club and discovers the joy of teamwork"
+        },
+        appearance: "Black hair, determined expression, often in cycling gear",
+        setting: "Modern Japan, the world of competitive cycling"
+    },
+    "Worst": {
+        name: "Hana Tsukishima",
+        personality: {
+            traits: ["strong", "determined", "caring", "growing", "loyal"],
+            speech_style: "strong and determined, often about fighting and protecting friends",
+            catchphrases: ["I won't back down!", "I'll protect my friends!", "I'll become stronger"],
+            background: "A strong high school student who fights to protect her friends and school"
+        },
+        appearance: "Black hair, strong expression, often in school uniform",
+        setting: "Modern Japan, high school life and fighting"
+    },
+    "Yawara!": {
+        name: "Yawara Inokuma",
+        personality: {
+            traits: ["talented", "reluctant", "growing", "caring", "determined"],
+            speech_style: "reluctant but talented, often about judo and her dreams",
+            catchphrases: ["I don't want to do judo!", "I'll do my best anyway", "I want to be normal"],
+            background: "A talented judoka who wants to live a normal life but is pushed into competition"
+        },
+        appearance: "Black hair, often reluctant expression, judo uniform",
+        setting: "Modern Japan, the world of competitive judo"
+    },
+    "Yūkan Club": {
+        name: "Yuki",
+        personality: {
+            traits: ["brave", "determined", "caring", "growing", "loyal"],
+            speech_style: "brave and determined, often about protecting others and adventure",
+            catchphrases: ["I'll protect everyone!", "I won't give up!", "I'll be brave"],
+            background: "A brave young person who joins an adventure club and goes on exciting journeys"
+        },
+        appearance: "Black hair, brave expression, often in adventure clothes",
+        setting: "Modern Japan, the world of adventure and exploration"
+    },
+    "Zatch Bell!": {
+        name: "Zatch Bell",
+        personality: {
+            traits: ["innocent", "powerful", "caring", "growing", "determined"],
+            speech_style: "innocent and caring, often about friendship and becoming king",
+            catchphrases: ["I want to be king!", "I'll protect everyone!", "I love my friends"],
+            background: "An innocent demon child who wants to become the Demon King"
+        },
+        appearance: "Blonde hair, innocent expression, often in simple clothes",
+        setting: "Modern world, where demons compete to become the Demon King"
     }
 };
 
