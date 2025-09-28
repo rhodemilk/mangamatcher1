@@ -23,10 +23,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 # Configure Gemini AI
-GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', 'AIzaSyDJBS3hSaV5O3fL1l-BYFoTxzAFdMl1BI0')
+GEMINI_API_KEY = os.getenv(
+    'GEMINI_API_KEY', 'AIzaSyDJBS3hSaV5O3fL1l-BYFoTxzAFdMl1BI0')
 if GEMINI_API_KEY:
     genai.configure(api_key=GEMINI_API_KEY)
-    model = genai.GenerativeModel('gemini-pro')
+    model = genai.GenerativeModel('gemini-2.0-flash')
 else:
     model = None
 
@@ -248,21 +249,21 @@ def chat_with_character():
     """Chat with a manga character using Gemini AI"""
     try:
         data = request.get_json()
-        
+
         if not data:
             return jsonify({'error': 'No data provided'}), 400
-        
+
         character_name = data.get('character_name')
         manga_title = data.get('manga_title')
         user_message = data.get('message')
         character_personality = data.get('character_personality', {})
-        
+
         if not all([character_name, manga_title, user_message]):
             return jsonify({'error': 'Missing required fields'}), 400
-        
+
         if not model:
             return jsonify({'error': 'AI service not available'}), 503
-        
+
         # Create character-specific prompt
         personality_prompt = f"""You are {character_name}, the main character from "{manga_title}".
 
@@ -277,7 +278,7 @@ User's message: {user_message}"""
 
         # Generate AI response
         response = model.generate_content(personality_prompt)
-        
+
         if response and response.text:
             return jsonify({
                 'success': True,
@@ -287,7 +288,7 @@ User's message: {user_message}"""
             })
         else:
             return jsonify({'error': 'Failed to generate response'}), 500
-            
+
     except Exception as e:
         print(f"Chat error: {e}")
         return jsonify({'error': f'Chat failed: {str(e)}'}), 500
