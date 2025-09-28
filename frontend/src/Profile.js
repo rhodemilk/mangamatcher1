@@ -55,7 +55,7 @@ function Profile() {
         <div className="profile-container">
             <div className="profile-main-content">
                 <div className="profile-header">
-                    <h1>🌸 Your MangaMatcher Profile</h1>
+                    <h1>🌸 MangaMatcher Profile</h1>
                     <p>Track your manga journey and preferences</p>
                 </div>
 
