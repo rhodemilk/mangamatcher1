@@ -233,8 +233,8 @@ function Quiz({ onQuizComplete, onError }) {
     return (
         <div className="quiz-container">
             <div className="quiz-header">
-                <h1>🌸Welcome to MangaMatcher</h1>
-                <p>Help us find your next manga!</p>
+                <h1>Welcome to MangaMatcher</h1>
+                <p>Find your next manga here!</p>
                 <div className="progress-bar">
                     <div
                         className="progress-fill"
