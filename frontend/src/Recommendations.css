@@ -87,12 +87,12 @@
 
 .manga-card-back {
     transform: rotateY(180deg);
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: #333;
     padding: 20px;
     box-sizing: border-box;
 }
