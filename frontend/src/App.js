@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import './App.css';
+import Home from './Home';
 import Quiz from './Quiz';
 import Recommendations from './Recommendations';
 import Profile from './Profile';
@@ -41,7 +42,8 @@ function App() {
           <div className="nav-container">
             <Link to="/" className="nav-logo">🌸 MangaMatcher</Link>
             <div className="nav-links">
-              <Link to="/" className="nav-link">Quiz</Link>
+              <Link to="/" className="nav-link">Home</Link>
+              <Link to="/quiz" className="nav-link">Quiz</Link>
               <Link to="/chats" className="nav-link">Chats</Link>
               <Link to="/profile" className="nav-link profile-icon" title="Profile">👤</Link>
             </div>
@@ -52,8 +54,9 @@ function App() {
         {info && <div className="alert info">{info}</div>}
 
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route
-            path="/"
+            path="/quiz"
             element={
               recommendations.length > 0 ? (
                 <Recommendations recommendations={recommendations} onBackToQuiz={handleBackToQuiz} />
