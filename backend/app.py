@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+import google.generativeai as genai
 
 # Load environment variables
 load_dotenv()
@@ -20,6 +21,14 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
+
+# Configure Gemini AI
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', 'AIzaSyDJBS3hSaV5O3fL1l-BYFoTxzAFdMl1BI0')
+if GEMINI_API_KEY:
+    genai.configure(api_key=GEMINI_API_KEY)
+    model = genai.GenerativeModel('gemini-pro')
+else:
+    model = None
 
 # Models
 
@@ -232,6 +241,56 @@ def quiz_recommend():
         return jsonify({'error': f'Recommendation failed: {str(e)}'}), 500
     except Exception as e:
         return jsonify({'error': f'Unexpected error: {str(e)}'}), 500
+
+
+@app.route('/api/chat', methods=['POST'])
+def chat_with_character():
+    """Chat with a manga character using Gemini AI"""
+    try:
+        data = request.get_json()
+        
+        if not data:
+            return jsonify({'error': 'No data provided'}), 400
+        
+        character_name = data.get('character_name')
+        manga_title = data.get('manga_title')
+        user_message = data.get('message')
+        character_personality = data.get('character_personality', {})
+        
+        if not all([character_name, manga_title, user_message]):
+            return jsonify({'error': 'Missing required fields'}), 400
+        
+        if not model:
+            return jsonify({'error': 'AI service not available'}), 503
+        
+        # Create character-specific prompt
+        personality_prompt = f"""You are {character_name}, the main character from "{manga_title}".
+
+Personality traits: {', '.join(character_personality.get('traits', []))}
+Speech style: {character_personality.get('speech_style', 'friendly and engaging')}
+Background: {character_personality.get('background', 'A character from this manga')}
+Setting: {character_personality.get('setting', 'The world of this manga')}
+
+Respond as this character would, staying true to their personality and the world they come from. Keep responses conversational, in character, and under 200 words. Don't break character or mention that you're an AI.
+
+User's message: {user_message}"""
+
+        # Generate AI response
+        response = model.generate_content(personality_prompt)
+        
+        if response and response.text:
+            return jsonify({
+                'success': True,
+                'response': response.text.strip(),
+                'character': character_name,
+                'manga': manga_title
+            })
+        else:
+            return jsonify({'error': 'Failed to generate response'}), 500
+            
+    except Exception as e:
+        print(f"Chat error: {e}")
+        return jsonify({'error': f'Chat failed: {str(e)}'}), 500
 
 
 # Initialize database
