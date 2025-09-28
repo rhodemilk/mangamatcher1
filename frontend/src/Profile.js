@@ -95,8 +95,8 @@ function Profile() {
                         <h2>❤️ Your Liked Manga</h2>
                         <div className="manga-grid">
                             {likedManga.map((manga, index) => (
-                                <div key={index} className="manga-card">
-                                    <div className="manga-image">
+                                <div key={index} className="profile-manga-card">
+                                    <div className="profile-manga-image">
                                         {manga.manga.cover_image_url ? (
                                             <img
                                                 src={manga.manga.cover_image_url}
@@ -107,23 +107,23 @@ function Profile() {
                                                 }}
                                             />
                                         ) : null}
-                                        <div className="no-image" style={{ display: manga.manga.cover_image_url ? 'none' : 'flex' }}>
+                                        <div className="profile-no-image" style={{ display: manga.manga.cover_image_url ? 'none' : 'flex' }}>
                                             <span>📚</span>
                                         </div>
                                     </div>
-                                    <div className="manga-info">
+                                    <div className="profile-manga-info">
                                         <h3>{manga.manga.title}</h3>
                                         <p>by {manga.manga.author}</p>
-                                        <div className="manga-meta">
-                                            <span className="genre">{manga.manga.genre}</span>
-                                            <span className="demographic">{manga.manga.demographic}</span>
+                                        <div className="profile-manga-meta">
+                                            <span className="profile-genre">{manga.manga.genre}</span>
+                                            <span className="profile-demographic">{manga.manga.demographic}</span>
                                         </div>
                                         {manga.manga.amazon_link && (
                                             <a
                                                 href={manga.manga.amazon_link}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="amazon-link"
+                                                className="profile-amazon-link"
                                             >
                                                 View on Amazon
                                             </a>

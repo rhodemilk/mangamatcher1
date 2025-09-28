@@ -4,6 +4,7 @@ import './App.css';
 import Quiz from './Quiz';
 import Recommendations from './Recommendations';
 import Profile from './Profile';
+import Chats from './Chats';
 
 function App() {
   const [recommendations, setRecommendations] = useState([]);
@@ -41,6 +42,7 @@ function App() {
             <Link to="/" className="nav-logo">🌸 MangaMatcher</Link>
             <div className="nav-links">
               <Link to="/" className="nav-link">Quiz</Link>
+              <Link to="/chats" className="nav-link">Chats</Link>
               <Link to="/profile" className="nav-link">Profile</Link>
             </div>
           </div>
@@ -60,6 +62,7 @@ function App() {
               )
             } 
           />
+          <Route path="/chats" element={<Chats />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
       </div>
