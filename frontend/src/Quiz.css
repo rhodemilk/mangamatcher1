@@ -3,7 +3,7 @@
     max-width: 800px;
     margin: 0 auto;
     padding: 2rem;
-    background: rgb(37, 58, 86);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border-radius: 20px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     color: white;
