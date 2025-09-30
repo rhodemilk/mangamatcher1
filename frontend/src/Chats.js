@@ -3,6 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import './Chats.css';
 import { getCharacterForManga } from './characterDatabase';
 
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000'; // API base URL
+
 function Chats() {
     const location = useLocation();
     const [likedManga, setLikedManga] = useState([]);
@@ -123,7 +125,7 @@ function Chats() {
 
     const generateAIResponse = async (character, userMessage) => {
         try {
-            const response = await fetch('http://localhost:8000/api/chat', {
+            const response = await fetch(`${API_BASE_URL}/api/chat`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

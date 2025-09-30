@@ -296,6 +296,14 @@ User's message: {user_message}"""
 
     except Exception as e:
         print(f"Chat error: {e}")
+        error_msg = str(e)
+        if "API key not valid" in error_msg or "API_KEY_INVALID" in error_msg:
+            return jsonify({
+                'success': True,
+                'response': "I'm sorry, I'm having trouble responding right now. But I'm still here to chat! The AI service needs to be properly configured.",
+                'character': character_name,
+                'manga': manga_title
+            })
         return jsonify({'error': f'Chat failed: {str(e)}'}), 500
 
 

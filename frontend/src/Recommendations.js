@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './Recommendations.css';
 import { getCharacterForManga } from './characterDatabase';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 function Recommendations({ recommendations, onBackToQuiz }) {
     const navigate = useNavigate();
