@@ -1,6 +1,7 @@
 # 🌸 MangaMatcher
 
 A React + Flask application that helps you discover manga based on your preferences through an interactive quiz.
+> 🏆 Built during **ShellHacks 2025** — check out our official [Devpost submission here](https://devpost.com/software/the-sigmas-pb4k3t)
 
 ## ✨ Features
 
